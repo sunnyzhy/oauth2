@@ -7,28 +7,33 @@
    - client_id=messaging-client : 必须，在授权服务器上注册的 client_id
    - redirect_uri=http://localhost : 必须，在授权服务器上注册的重定向的地址
 
-2. 浏览器重定向到授权服务器的 /login 接口
+2. 浏览器重定向到授权服务器的 /login 接口（GET）
    ```
    http://localhost:8090/login
    ```
 
-3. 输入用户名、密码，点登录之后，浏览器又重定向到授权服务器的 /oauth/authorize 接口（GET）
+3. 输入用户名、密码，点登录之后，调用授权服务器的 /login 接口（POST）
+   ```
+   http://localhost:8090/login
+   ```
+
+4. 浏览器又重定向到授权服务器的 /oauth/authorize 接口（GET）
    ```
    http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
    ```
 
-4. 点授权之后，调用授权服务器的 /oauth/authorize 接口（POST）
+5. 点授权之后，调用授权服务器的 /oauth/authorize 接口（POST）
    ```
    http://localhost:8090/oauth/authorize
    ```
 
-5. 浏览器重定向到
+6. 浏览器重定向到
    ```
    http://localhost?code=W636oE
    ```
    - code=W636oE : code 就是授权码
 
-6. 访问授权服务器的 /oauth/token 接口（POST）
+7. 访问授权服务器的 /oauth/token 接口（POST）
    ```
    http://localhost:8090/oauth/token?grant_type=authorization_code&code=W636oE&client_id=messaging-client&client_secret=secret&redirect_uri=http://localhost
    ```
