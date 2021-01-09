@@ -35,7 +35,7 @@ Options:
 ```bash
 # mkdir -p /usr/local/jks
 
-# keytool -genkeypair -alias oauth2-auth-key -keyalg RSA -keypass sunny123 -keystore /usr/local/jks/oauth2.keystore -storepass zhy123
+# keytool -genkeypair -alias oauth2-auth-key -keyalg RSA -keypass zhy123 -keystore /usr/local/jks/oauth2.keystore -storepass zhy123
 What is your first and last name?
   [Unknown]:  zhy
 What is the name of your organizational unit?
@@ -45,7 +45,7 @@ What is the name of your organization?
 What is the name of your City or Locality?
   [Unknown]:  zhy
 What is the name of your State or Province?
-  [Unknown]:  zhy
+  [Unknown]:  zhy          
 What is the two-letter country code for this unit?
   [Unknown]:  zhy
 Is CN=zhy, OU=zhy, O=zhy, L=zhy, ST=zhy, C=zhy correct?
@@ -61,7 +61,7 @@ oauth2.keystore
 
 出现了一条警告信息，接着执行下面的操作。
 
-## 迁移到 PKCS12
+## 从其他密钥库导入一个或所有条目
 命令行格式 :
 ```bash
 # keytool -importkeystore [OPTION]...
@@ -92,6 +92,52 @@ Options:
 
 命令实例 :
 ```bash
-keytool -importkeystore -srckeystore /usr/local/jks/oauth2.keystore -destkeystore /usr/local/jks/oauth2.keystore -deststoretype pkcs12
+# keytool -importkeystore -srckeystore /usr/local/jks/oauth2.keystore -destkeystore /usr/local/jks/oauth2.keystore -deststoretype pkcs12
+Enter source keystore password:  zhy123
+Entry for alias oauth2-auth-key successfully imported.
+Import command completed:  1 entries successfully imported, 0 entries failed or cancelled
+
+Warning:
+Migrated "/usr/local/jks/oauth2.keystore" to Non JKS/JCEKS. The JKS keystore is backed up as "/usr/local/jks/oauth2.keystore.old".
+
+# ls
+oauth2.keystore  oauth2.keystore.old
 ```
+
+## 获取公钥
+```bash
+# keytool -list -rfc --keystore /usr/local/jks/oauth2.keystore | openssl x509 -inform pem -pubkey
+Enter keystore password:  zhy123
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiYR2i8qRo0xlT/v4slKH
+UMlMqpwSAGWZX9J11YXRj1144qfKit6rVXjeEKDQDiiGQvxL4tZe5PunsoPFq5vJ
+Tvz58GpJPijnf9WkuD4Po7SPiFfJEpJNz/XEgC9Y3Vqo9Q/+XYdiTNgFo0F+halK
+iwI0XYzM6Bd+fGpXXFBPTdx0Dka9ZqRyl7KoR09SX1Tg6D7bdOqk/oBM3UMTs7B8
+MIhvo37wdHqliBX7xEVRRRY1jrgpy1w4HJPFkRftE4Q9MaARBQA13WS1lkpIpdN0
+1y+snWynTYmLQRxLj4Yd6x1BJOnIVAfO1AVrF7EzdjHPQzuRA0jRs2//LRlgFHQ+
+qQIDAQAB
+-----END PUBLIC KEY-----
+-----BEGIN CERTIFICATE-----
+MIIDRzCCAi+gAwIBAgIEHwhI4DANBgkqhkiG9w0BAQsFADBUMQwwCgYDVQQGEwN6
+aHkxDDAKBgNVBAgTA3poeTEMMAoGA1UEBxMDemh5MQwwCgYDVQQKEwN6aHkxDDAK
+BgNVBAsTA3poeTEMMAoGA1UEAxMDemh5MB4XDTIxMDEwOTA2NTY1NloXDTIxMDQw
+OTA2NTY1NlowVDEMMAoGA1UEBhMDemh5MQwwCgYDVQQIEwN6aHkxDDAKBgNVBAcT
+A3poeTEMMAoGA1UEChMDemh5MQwwCgYDVQQLEwN6aHkxDDAKBgNVBAMTA3poeTCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAImEdovKkaNMZU/7+LJSh1DJ
+TKqcEgBlmV/SddWF0Y9deOKnyoreq1V43hCg0A4ohkL8S+LWXuT7p7KDxaubyU78
++fBqST4o53/VpLg+D6O0j4hXyRKSTc/1xIAvWN1aqPUP/l2HYkzYBaNBfoWpSosC
+NF2MzOgXfnxqV1xQT03cdA5GvWakcpeyqEdPUl9U4Og+23TqpP6ATN1DE7OwfDCI
+b6N+8HR6pYgV+8RFUUUWNY64KctcOByTxZEX7ROEPTGgEQUANd1ktZZKSKXTdNcv
+rJ1sp02Ji0EcS4+GHesdQSTpyFQHztQFaxexM3Yxz0M7kQNI0bNv/y0ZYBR0PqkC
+AwEAAaMhMB8wHQYDVR0OBBYEFFLUxiknzDpMaAXcQfFOqz4LwsyDMA0GCSqGSIb3
+DQEBCwUAA4IBAQAmK1T9puPgzWvd3OL3TKGN9KTFh9uzrZQ7VfiQ/w4vvLHpsQwB
+2xRIGcgmJX/HJPjKAvqIL3cRoFBLKu9B9F/sdJyz/1gN+rWfzeyvIRyOuIQ/nsh6
+xBc8Cm0sLcw0qgUAGOvU92Ypf02o9PbXdOkuTjHS96XzrQm1OZphFKW5zw5WOgo5
+TOstKHyrfmeaWQhSU0Mr5A8pJdmw86hSrvnPS//82xb6lUKjhlLLK9DDkPyNHVsZ
+PvRZiPeII7K8wQgt4W+tyEzszxjIreHGdXQZttSLqFV51ZWjYS9yv3Xjl0jRU9O4
+UcYjgNODtwIA8swIY/yRT2CKXUFkKMr3hQuw
+-----END CERTIFICATE-----
+```
+
+输出的内容包含了公钥的信息，也就是从 BEGIN PUBLIC KEY 到 END PUBLIC KEY 之间的字符串，该字符串用于校验签名（私钥加密后的内容）。
 
