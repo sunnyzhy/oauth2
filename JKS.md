@@ -61,7 +61,7 @@ oauth2.keystore
 
 出现了一条警告信息，接着执行下面的操作。
 
-## 从其他密钥库导入一个或所有条目
+## 2. 从其他密钥库导入一个或所有条目
 命令行格式 :
 ```bash
 # keytool -importkeystore [OPTION]...
@@ -104,7 +104,7 @@ Migrated "/usr/local/jks/oauth2.keystore" to Non JKS/JCEKS. The JKS keystore is 
 oauth2.keystore  oauth2.keystore.old
 ```
 
-## 获取公钥
+## 3. 获取公钥
 ```bash
 # keytool -list -rfc --keystore /usr/local/jks/oauth2.keystore | openssl x509 -inform pem -pubkey
 Enter keystore password:  zhy123
