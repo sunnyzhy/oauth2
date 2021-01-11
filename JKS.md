@@ -141,3 +141,119 @@ UcYjgNODtwIA8swIY/yRT2CKXUFkKMr3hQuw
 
 输出的内容包含了公钥的信息，也就是从 BEGIN PUBLIC KEY 到 END PUBLIC KEY 之间的字符串，该字符串用于校验签名（私钥加密后的内容）。
 
+## 4. 代码示例
+### 4.1 定义 ObjectMapper 的 bean
+```java
+@Configuration
+public class JacksonConfig {
+    /**
+     * jackson对象
+     */
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        // 格式化json
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        // 忽略不存在的字段
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return objectMapper;
+    }
+}
+```
+
+### 4.2 定义 RsaEntity
+```java
+public class RsaEntity {
+    private KeyStoreKeyFactory storeKeyFactory;
+    private String verifierKeyId;
+    private KeyPair keyPair;
+
+    public String getVerifierKeyId() {
+        return verifierKeyId;
+    }
+
+    public RsaEntity(String keyAlias, String keyStoreFile, String keyStorePassword) {
+        storeKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(keyStoreFile), keyStorePassword.toCharArray());
+        verifierKeyId = new String(Base64.encode(KeyGenerators.secureRandom(32).generateKey()));
+        keyPair = storeKeyFactory.getKeyPair(keyAlias);
+    }
+
+    public RSAPublicKey getPublicKey() {
+        return (RSAPublicKey) keyPair.getPublic();
+    }
+
+    public RSAPrivateKey getPrivateKey() {
+        return (RSAPrivateKey) keyPair.getPrivate();
+    }
+}
+```
+
+### 4.3 定义编码、解码 Jwt 的工具类
+```java
+@Component
+public class JwtUtil {
+    private final ObjectMapper objectMapper;
+
+    public JwtUtil(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    /**
+     * 返回私钥签名后的token
+     * @param rsaEntity
+     * @param contentMap
+     * @return
+     * @throws JsonProcessingException
+     */
+    public String encode(RsaEntity rsaEntity, Map<String, String> contentMap) throws JsonProcessingException {
+        String bodyString = objectMapper.writeValueAsString(contentMap);
+        Jwt jwt = JwtHelper.encode(bodyString, new RsaSigner(rsaEntity.getPrivateKey()));
+        String content = jwt.getEncoded();
+        return content;
+    }
+
+    /**
+     * 使用公钥验证签名，并返回原始数据
+     * @param rsaEntity
+     * @param token
+     * @return
+     */
+    public String decode(RsaEntity rsaEntity, String token) {
+        Jwt jwt = JwtHelper.decodeAndVerify(token, new RsaVerifier(rsaEntity.getPublicKey()));
+        String claims = jwt.getClaims();
+        return claims;
+    }
+}
+```
+
+### 4.4 单元测试
+```java
+@Autowired
+private JwtUtil jwtUtil;
+
+@Test
+void rsa() throws JsonProcessingException {
+    RsaEntity rsaEntity = new RsaEntity("oauth2-auth-key", "oauth2.keystore", "zhy123");
+    Map<String, String> contentMap = new HashMap<>();
+    contentMap.put("id", "1001");
+    contentMap.put("name", "ab");
+    String content = jwtUtil.encode(rsaEntity, contentMap);
+    System.out.println(content);
+
+    System.out.println("======");
+
+    String claims = jwtUtil.decode(rsaEntity, content);
+    System.out.println(claims);
+}
+```
+
+控制台输出: 
+
+```
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.ew0KICAibmFtZSIgOiAiYWIiLA0KICAiaWQiIDogIjEwMDEiDQp9.keCPiv4yolFrW-WcnkEfIq_-rMGd9EIovwq_yzs9HKC6uydRq2cDtQmjDOoaL_Y7othnywt_f0VLxBNde4J5f_zSL_r-jpX5XuYuwICfa75CObnr5vKBoHOj7Suu7D1uOpLhfuLRcOrUy8KZKcHvPVgSvqJ6w8j8XerbVGkYCQzCCmDjG1C0OzLjMmqdicuT4ENcmw_7rbCrZmiyyTHrMiHoVnxY6RnP6mpYy1ZRhZxN-qTmHhaK0oMj_1LVVegdR_WXCJuq3FPDh8jRZgEC1_3NpYutDgdZFtlx84jFawPd-WkoqXvEGyjnOjzha2H2EtJBge08g5hZf_LqEMbJ1w
+======
+{
+  "name" : "ab",
+  "id" : "1001"
+}
+```
