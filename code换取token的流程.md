@@ -34,9 +34,17 @@
    - code=W636oE : code 就是授权码
 
 7. 访问授权服务器的 /oauth/token 接口（POST）
+
+   postman:
    ```
    http://localhost:8090/oauth/token?grant_type=authorization_code&code=W636oE&client_id=messaging-client&client_secret=secret&redirect_uri=http://localhost
    ```
+   
+   curl:
+   ```bash
+   # curl --data-urlencode "grant_type=authorization_code" --data-urlencode "cde=yG6mrh" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" --data-urlencode "redirect_uri=http://localhost" -X POST http://20.0.0.106:8090/oauth/token
+   ```
+   
    - grant_type=authorization_code : 必须，授权码模式(authorization code)
    - code=W636oE : 必须，授权服务器返回的授权码
    - client_id=messaging-client : 必须，在授权服务器上注册的 client_id
