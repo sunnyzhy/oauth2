@@ -1,14 +1,14 @@
 # code换取token的流程
 ## 前言
 - /oauth/authorize 的 controller 方法
-```
-.\org\springframework\security\oauth\spring-security-oauth2\2.5.0.RELEASE\spring-security-oauth2-2.5.0.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class
-```
+   ```
+   .\org\springframework\security\oauth\spring-security-oauth2\2.5.0.RELEASE\spring-security-oauth2-2.5.0.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class
+   ```
 
 - /oauth/token  的 controller 方法
-```
-.\org\springframework\security\oauth\spring-security-oauth2\2.5.0.RELEASE\spring-security-oauth2-2.5.0.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class
-```
+   ```
+   .\org\springframework\security\oauth\spring-security-oauth2\2.5.0.RELEASE\spring-security-oauth2-2.5.0.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class
+   ```
 
 ## 1. 在浏览器中访问授权服务器的 /oauth/authorize 接口（GET）
 ```
