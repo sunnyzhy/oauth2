@@ -22,12 +22,13 @@
 
 ## controller
 
-- /oauth/authorize
+- @RequestMapping({"/oauth/authorize"}): 后台自动保存 approve，并生成 code
+- @RequestMapping(value = {"/oauth/authorize"}, method = {RequestMethod.POST}, params = {"user_oauth_approval"}): 手动保存 approve，并生成 code
    ```
    \org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class
    ```
 
-- /oauth/token
+- @RequestMapping(value = {"/oauth/token"}, method = {RequestMethod.POST}): 生成/刷新 token
    ```
    \org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class
    ```
