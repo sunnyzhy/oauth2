@@ -1,45 +1,47 @@
-# code换取token的流程
-## 前言
-- /oauth/authorize 的 controller 方法
-   ```
-   .\org\springframework\security\oauth\spring-security-oauth2\2.5.0.RELEASE\spring-security-oauth2-2.5.0.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class
-   ```
-
-- /oauth/token  的 controller 方法
-   ```
-   .\org\springframework\security\oauth\spring-security-oauth2\2.5.0.RELEASE\spring-security-oauth2-2.5.0.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class
-   ```
+# code 换取 token 的流程
 
 ## 1. 在浏览器中访问授权服务器的 /oauth/authorize 接口（GET）
+
 ```
 http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
 ```
 
-- response_type=code : 必须，请求的响应类型为 authorization code
-- client_id=messaging-client : 必须，在授权服务器上注册的 client_id
-- redirect_uri=http://localhost : 必须，在授权服务器上注册的重定向的地址
+- response_type=code : **必须**，请求的响应类型为 authorization code
+- client_id=messaging-client : **必须**，在授权服务器上注册的 client_id
+- redirect_uri=http://localhost : **必须**，在授权服务器上注册的重定向地址
 
 ## 2. 浏览器重定向到授权服务器的 /login 接口（GET）
+
+**如果未认证，就重定向到授权服务器的认证接口，此时会打开 login 认证界面；否则，就直接转到步骤 6**
+
 ```
 http://localhost:8090/login
 ```
 
 ## 3. 输入用户名、密码，点登录之后，调用授权服务器的 /login 接口（POST）
+
 ```
 http://localhost:8090/login
 ```
 
 ## 4. 浏览器又重定向到授权服务器的 /oauth/authorize 接口（GET）
+
+**浏览器重定向到授权服务器的授权接口，即步骤 1 所访问的授权接口地址。**
+
 ```
 http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
 ```
 
 ## 5. 点授权之后，调用授权服务器的 /oauth/authorize 接口（POST）
+
+**如果 autoapprove 为 false ，就跳转到 approve 授权界面；否则，就直接转到步骤 6**
+
 ```
 http://localhost:8090/oauth/authorize
 ```
 
-## 6. 浏览器重定向到
+## 6. 浏览器重定向到（GET）
+
 ```
 http://localhost?code=W636oE
 ```
@@ -47,6 +49,7 @@ http://localhost?code=W636oE
 - code=W636oE : code 就是授权码
 
 ## 7. 访问授权服务器的 /oauth/token 接口（POST）
+
 1. **postman:**
    ```
    http://localhost:8090/oauth/token?grant_type=authorization_code&code=W636oE&client_id=messaging-client&client_secret=secret&redirect_uri=http://localhost
@@ -63,11 +66,11 @@ http://localhost?code=W636oE
    # curl -X POST -d "grant_type=authorization_code&code=W636oE&client_id=messging-client&client_secret=secret&redirect_uri=http://localhost" http://localhost:8090/oauth/token
    ```
 
-- grant_type=authorization_code : 必须，授权码模式(authorization code)
-- code=W636oE : 必须，授权服务器返回的授权码
-- client_id=messaging-client : 必须，在授权服务器上注册的 client_id
-- client_secret=secret : 必须，在授权服务器上注册的 secret
-- redirect_uri=http://localhost : 必须，在授权服务器上注册的重定向的地址
+- grant_type=authorization_code : **必须**，授权码模式(authorization code)
+- code=W636oE : **必须**，授权服务器返回的授权码
+- client_id=messaging-client : **必须**，在授权服务器上注册的 client_id
+- client_secret=secret : **必须**，在授权服务器上注册的 secret
+- redirect_uri=http://localhost : **必须**，在授权服务器上注册的重定向的地址
    
 成功获取 token 如下: 
 
@@ -82,6 +85,7 @@ http://localhost?code=W636oE
 ```
 
 ## 8. 刷新token（POST）
+
 1. **postman:**
    ```
    http://localhost:8090/oauth/token?grant_type=refresh_token&refresh_token=uIOk2gzINbjYc5SWBvvId_xXWK0&client_id=messaging-client&client_secret=secret
@@ -92,10 +96,10 @@ http://localhost?code=W636oE
    # curl --data-urlencode "grant_type=refresh_token" --data-urlencode "refresh_token=uIOk2gzINbjYc5SWBvvId_xXWK0" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" -X POST http://localhost:8090/oauth/token
    ```
 
-- grant_type=refresh_token : 必须，刷新 token
-- refresh_token=uIOk2gzINbjYc5SWBvvId_xXWK0 : 必须，获取 token 时，授权服务器返回的 refresh_token
-- client_id=messaging-client : 必须，在授权服务器上注册的 client_id
-- client_secret=secret : 必须，在授权服务器上注册的 secret
+- grant_type=refresh_token : **必须**，刷新 token
+- refresh_token=uIOk2gzINbjYc5SWBvvId_xXWK0 : **必须**，获取 token 时，授权服务器返回的 refresh_token
+- client_id=messaging-client : **必须**，在授权服务器上注册的 client_id
+- client_secret=secret : **必须**，在授权服务器上注册的 secret
 
 刷新 token 如下：
 
