@@ -1,6 +1,8 @@
 # code 换取 token 的流程
 
-## 1. 在浏览器中访问授权服务器的 /oauth/authorize 接口（GET）
+## 1 访问 /oauth/authorize 接口（GET）
+
+**在浏览器中访问授权服务器的 /oauth/authorize 接口。**
 
 ```
 http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
@@ -10,37 +12,45 @@ http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-cli
 - client_id=messaging-client : **必须**，在授权服务器上注册的 client_id
 - redirect_uri=http://localhost : **必须**，在授权服务器上注册的重定向地址
 
-## 2. 浏览器重定向到授权服务器的 /login 接口（GET）
+## 2 重定向到 /login 接口（GET）
 
-**如果未认证，就重定向到授权服务器的认证接口，此时会打开 login 认证界面；否则，就直接转到步骤 6**
+**浏览器重定向到授权服务器的 /login 接口。**
 
-```
-http://localhost:8090/login
-```
-
-## 3. 输入用户名、密码，点登录之后，调用授权服务器的 /login 接口（POST）
+**如果未认证，就重定向到授权服务器的认证接口，此时会打开 login 认证界面；否则，就直接转到步骤 6。**
 
 ```
 http://localhost:8090/login
 ```
 
-## 4. 浏览器又重定向到授权服务器的 /oauth/authorize 接口（GET）
+## 3 登录并调用 /login 接口（POST）
 
-**浏览器重定向到授权服务器的授权接口，即步骤 1 所访问的授权接口地址。**
+**输入用户名、密码，点登录之后，调用授权服务器的 /login 接口。**
+
+```
+http://localhost:8090/login
+```
+
+## 4 重定向到 /oauth/authorize 接口（GET）
+
+**浏览器又重定向到授权服务器的 /oauth/authorize 接口，即步骤 1 所访问的授权接口地址。**
 
 ```
 http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
 ```
 
-## 5. 点授权之后，调用授权服务器的 /oauth/authorize 接口（POST）
+## 5 授权并调用 /oauth/authorize 接口（POST）
 
-**如果 autoapprove 为 false ，就跳转到 approve 授权界面；否则，就直接转到步骤 6**
+**如果 autoapprove 为 false ，就打开 approve 授权界面；否则，就直接转到步骤 6 （后台自动授权）。**
+
+**点授权之后，调用授权服务器的 /oauth/authorize 接口。**
 
 ```
 http://localhost:8090/oauth/authorize
 ```
 
-## 6. 浏览器重定向到（GET）
+## 6 重定向并返回 code（GET）
+
+**浏览器重定向并返回 code。**
 
 ```
 http://localhost?code=W636oE
@@ -48,7 +58,9 @@ http://localhost?code=W636oE
 
 - code=W636oE : code 就是授权码
 
-## 7. 访问授权服务器的 /oauth/token 接口（POST）
+## 7 获取 token 调用 /oauth/token 接口（POST）
+
+**调用授权服务器的 /oauth/token 接口。注意，grant_type=authorization_code。**
 
 1. **postman:**
    ```
@@ -84,7 +96,9 @@ http://localhost?code=W636oE
 }
 ```
 
-## 8. 刷新token（POST）
+## 8 刷新 token 调用 /oauth/token 接口（POST）
+
+**调用授权服务器的 /oauth/token 接口。注意，grant_type=refresh_token。**
 
 1. **postman:**
    ```
