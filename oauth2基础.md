@@ -1,4 +1,4 @@
-# oauth2 类
+# oauth2 基础
 
 ## 依赖
 
@@ -23,7 +23,7 @@
 ## controller
 
 - @RequestMapping({"/oauth/authorize"}): 后台自动保存 approve，并生成 code
-- @RequestMapping(value = {"/oauth/authorize"}, method = {RequestMethod.POST}, params = {"user_oauth_approval"}): 手动保存 approve，并生成 code
+- @RequestMapping(value = {"/oauth/authorize"}, method = {RequestMethod.POST}, params = {"user_oauth_approval"}): 人工保存 approve，并生成 code
    ```
    \org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class
    ```
@@ -33,7 +33,9 @@
    \org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class
    ```
 
-## 数据表相关的类
+## oauth2 服务与数据表的关系
+
+### 1 授权服务相关的数据表
 
 - JdbcClientDetailsService (oauth_client_details)
    ```
@@ -65,9 +67,9 @@
    ```
 
    ```java
-   private String selectAuthenticationSql = "select code, authentication from oauth_code where code = ?";
-   private String insertAuthenticationSql = "insert into oauth_code (code, authentication) values (?, ?)";
-   private String deleteAuthenticationSql = "delete from oauth_code where code = ?";
+   private static final String DEFAULT_SELECT_STATEMENT = "select code, authentication from oauth_code where code = ?";
+   private static final String DEFAULT_INSERT_STATEMENT = "insert into oauth_code (code, authentication) values (?, ?)";
+   private static final String DEFAULT_DELETE_STATEMENT = "delete from oauth_code where code = ?";
    ```
 
 - JdbcTokenStore (oauth_access_token/oauth_refresh_token)
@@ -91,4 +93,18 @@
    private static final String DEFAULT_REFRESH_TOKEN_AUTHENTICATION_SELECT_STATEMENT = "select token_id, authentication from oauth_refresh_token where token_id = ?";
    private static final String DEFAULT_REFRESH_TOKEN_DELETE_STATEMENT = "delete from oauth_refresh_token where token_id = ?";
    ```
+ 
+ - clientdetails: customized oauth_client_details table
+ 
+### 2 客户端服务相关的数据表
    
+- JdbcClientTokenServices (oauth_client_token)
+   ```
+   \org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\client\token\JdbcClientTokenServices.class
+   ```
+   
+   ```java
+   private static final String DEFAULT_ACCESS_TOKEN_INSERT_STATEMENT = "insert into oauth_client_token (token_id, token, authentication_id, user_name, client_id) values (?, ?, ?, ?, ?)";
+   private static final String DEFAULT_ACCESS_TOKEN_FROM_AUTHENTICATION_SELECT_STATEMENT = "select token_id, token from oauth_client_token where authentication_id = ?";
+   private static final String DEFAULT_ACCESS_TOKEN_DELETE_STATEMENT = "delete from oauth_client_token where authentication_id = ?";
+   ```
