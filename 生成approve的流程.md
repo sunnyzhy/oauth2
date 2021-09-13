@@ -1,4 +1,4 @@
-# approve 流程
+# 生成 approve 的流程
 
 ## oauth2 如何保存 approve
 
