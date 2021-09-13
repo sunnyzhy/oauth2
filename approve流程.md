@@ -131,7 +131,7 @@ authorize 流程:
 
 oauth2 跳转到 approve 授权页面的条件:
 
-1. oauth2 跳转到 approve 授权页面跟 oauth_client_details.autoapprove = true 没有直接关系，因为 oauth_client_details.autoapprove 存储的是一个数组，可以是任意数据
+1. oauth2 是否跳转到 approve 授权页面跟 oauth_client_details.autoapprove = true/false 没有直接关系，因为 oauth_client_details.autoapprove 存储的是一个数组，可以是任意数据
 2. 当 approvedScopes.containsAll(requestedScopes) 时，oauth2 不跳转到 approve 授权页面，后台会自动保存 oauth_approvals; 否则执行步骤 3
 3. 当 validUserApprovedScopes.containsAll(requestedScopes) 时，oauth2 不跳转到 approve 授权页面；否则执行步骤 4
 4. oauth2 跳转到 approve 授权页面，授权之后，后台保存 oauth_approvals
