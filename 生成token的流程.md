@@ -1,4 +1,4 @@
-# code 换取 token 的流程
+# 生成 token 的流程 (code 换取 token)
 
 ## 1 访问 /oauth/authorize 接口（GET）
 
