@@ -1,4 +1,4 @@
-# code 流程
+# 生成 code 的流程
 
 ## 1 调用 authorize 方法生成 code
 
