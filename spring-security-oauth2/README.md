@@ -1,8 +1,9 @@
-# Getting Started
+# spring-security-oauth2
 
-## 前言
-client-id: 客户端标识 ID（账号），由授权服务器颁发
-client-secret: 客户端安全码（密码），由授权服务器颁发
+- auth-server: 授权服务
 
-Go to http://localhost:8080 and login using user/password
+- client: 客户端
 
+- resource-server: 资源服务
+
+这三个服务可以单独部署（或运行），也可以部署（或运行）在一台服务器。
