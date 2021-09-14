@@ -1,0 +1,13 @@
+server:
+  port: 8092
+
+security:
+  oauth2:
+    resource:
+      jwk:
+        key-set-uri: http://127.0.0.1:8090/oauth2/keys
+
+oauth:
+  token:
+    store:
+      strategy: 2
