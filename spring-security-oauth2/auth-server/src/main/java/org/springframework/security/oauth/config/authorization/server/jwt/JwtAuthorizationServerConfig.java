@@ -1,13 +1,11 @@
-package org.springframework.security.oauth.config.token.store.jdbc;
+package org.springframework.security.oauth.config.authorization.server.jwt;
 
 import org.springframework.context.annotation.Conditional;
-import org.springframework.security.oauth.condition.JdbcCondition;
-import org.springframework.security.oauth.config.BaseAuthorizationServerConfig;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth.condition.JwtCondition;
+import org.springframework.security.oauth.config.authorization.server.BaseAuthorizationServerConfig;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
-import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
@@ -16,16 +14,12 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  */
 @Configuration
 @EnableAuthorizationServer
-@Conditional(JdbcCondition.class)
-public class JdbcAuthorizationServerConfig extends BaseAuthorizationServerConfig {
+@Conditional(JwtCondition.class)
+public class JwtAuthorizationServerConfig extends BaseAuthorizationServerConfig {
     private final TokenStore tokenStore;
-    private final UserApprovalHandler userApprovalHandler;
-    private final AuthorizationCodeServices codeServices;
 
-    public JdbcAuthorizationServerConfig(TokenStore tokenStore, UserApprovalHandler userApprovalHandler, AuthorizationCodeServices codeServices) {
+    public JwtAuthorizationServerConfig(TokenStore tokenStore) {
         this.tokenStore = tokenStore;
-        this.userApprovalHandler = userApprovalHandler;
-        this.codeServices = codeServices;
     }
 
     /**
@@ -40,9 +34,7 @@ public class JdbcAuthorizationServerConfig extends BaseAuthorizationServerConfig
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         super.configure(endpoints);
         endpoints
-                .tokenStore(tokenStore)
-                .userApprovalHandler(userApprovalHandler)
-                .authorizationCodeServices(codeServices);
+                .tokenStore(tokenStore);
     }
 
 }

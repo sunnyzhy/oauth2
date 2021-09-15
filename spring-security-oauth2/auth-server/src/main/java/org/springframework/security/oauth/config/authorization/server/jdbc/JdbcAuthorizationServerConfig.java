@@ -1,11 +1,13 @@
-package org.springframework.security.oauth.config.token.store.redis;
+package org.springframework.security.oauth.config.authorization.server.jdbc;
 
 import org.springframework.context.annotation.Conditional;
+import org.springframework.security.oauth.condition.JdbcCondition;
+import org.springframework.security.oauth.config.authorization.server.BaseAuthorizationServerConfig;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth.condition.RedisCondition;
-import org.springframework.security.oauth.config.BaseAuthorizationServerConfig;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
@@ -14,12 +16,16 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  */
 @Configuration
 @EnableAuthorizationServer
-@Conditional(RedisCondition.class)
-public class RedisAuthorizationServerConfig extends BaseAuthorizationServerConfig {
+@Conditional(JdbcCondition.class)
+public class JdbcAuthorizationServerConfig extends BaseAuthorizationServerConfig {
     private final TokenStore tokenStore;
+    private final UserApprovalHandler userApprovalHandler;
+    private final AuthorizationCodeServices codeServices;
 
-    public RedisAuthorizationServerConfig(TokenStore tokenStore) {
+    public JdbcAuthorizationServerConfig(TokenStore tokenStore, UserApprovalHandler userApprovalHandler, AuthorizationCodeServices codeServices) {
         this.tokenStore = tokenStore;
+        this.userApprovalHandler = userApprovalHandler;
+        this.codeServices = codeServices;
     }
 
     /**
@@ -34,7 +40,9 @@ public class RedisAuthorizationServerConfig extends BaseAuthorizationServerConfi
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         super.configure(endpoints);
         endpoints
-                .tokenStore(tokenStore);
+                .tokenStore(tokenStore)
+                .userApprovalHandler(userApprovalHandler)
+                .authorizationCodeServices(codeServices);
     }
 
 }

@@ -1,9 +1,9 @@
-package org.springframework.security.oauth.config.token.store.jwt;
+package org.springframework.security.oauth.config.authorization.server.redis;
 
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth.condition.JwtCondition;
-import org.springframework.security.oauth.config.BaseAuthorizationServerConfig;
+import org.springframework.security.oauth.condition.RedisCondition;
+import org.springframework.security.oauth.config.authorization.server.BaseAuthorizationServerConfig;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -14,11 +14,11 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  */
 @Configuration
 @EnableAuthorizationServer
-@Conditional(JwtCondition.class)
-public class JwtAuthorizationServerConfig extends BaseAuthorizationServerConfig {
+@Conditional(RedisCondition.class)
+public class RedisAuthorizationServerConfig extends BaseAuthorizationServerConfig {
     private final TokenStore tokenStore;
 
-    public JwtAuthorizationServerConfig(TokenStore tokenStore) {
+    public RedisAuthorizationServerConfig(TokenStore tokenStore) {
         this.tokenStore = tokenStore;
     }
 

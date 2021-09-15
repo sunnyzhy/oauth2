@@ -1,5 +1,10 @@
 # 授权服务
 
+授权服务包含认证与授权两个流程:
+
+1. 认证: 由 Spring-Security 负责
+2. 授权: 由 Oauth2 流程
+
 ## 数据表
 
 ./resources/db/oauth2.sql
@@ -20,7 +25,7 @@
 - oauth_extend_user_authority
 - oauth_extend_user_details
 
-扩展表用于存储登录认证的用户名、密码、角色。
+扩展表用于存储认证的用户名、密码、角色。
 
 ## token 存储方式
 
@@ -54,8 +59,8 @@ oauth:
 
 ### 关于示例代码里的 ClientDetailsService
 
-- JdbcTokenStore, JwtTokenStore, RedisTokenStore 使用的都是 JdbcClientDetailsService, 读取数据表 oauth_client_details
-- InMemoryTokenStore 读取的是内存里的 client_details
+- JdbcTokenStore, JwtTokenStore, RedisTokenStore 模式下的 ClientDetailsService 使用的都是 JdbcClientDetailsService, 读取数据表 oauth_client_details
+- InMemoryTokenStore 模式下的 ClientDetailsService 读取的是内存里的 client_details
 
 ## 生成 token
 
@@ -69,7 +74,7 @@ oauth:
    http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
    ```
    
-3. 输入用户名、密码进行登录认证
+3. 输入用户名、密码进行认证
 
 4. 授权（如果需要授权的话，否则跳过该步骤）
 

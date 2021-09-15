@@ -1,4 +1,4 @@
-package org.springframework.security.oauth.config.token.store.memory;
+package org.springframework.security.oauth.config.authorization.server.memory;
 
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;

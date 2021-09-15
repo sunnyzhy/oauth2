@@ -9,7 +9,6 @@ import org.springframework.security.oauth.mapper.OauthExtendAuthorityMapper;
 import org.springframework.security.oauth.mapper.OauthExtendUserDetailsMapper;
 import org.springframework.security.oauth.entity.OauthExtendAuthority;
 import org.springframework.security.oauth.entity.OauthExtendUserDetails;
-import org.springframework.security.oauth.model.UserDetail;
 import org.springframework.security.oauth.model.UserDetailsImpl;
 import org.springframework.stereotype.Component;
 
@@ -40,13 +39,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
         // 封装数据库的实体类
-        UserDetail userDetail = new UserDetail();
+        UserDetailsImpl userDetail = new UserDetailsImpl();
         BeanUtils.copyProperties(user, userDetail);
         // 封装授权的角色
         List<OauthExtendAuthority> authorityList = authorityMapper.selectRole(userDetail.getId());
         for (OauthExtendAuthority authority : authorityList) {
             userDetail.getRoles().add(authority.getRole());
         }
-        return new UserDetailsImpl(userDetail);
+        return userDetail;
     }
 }

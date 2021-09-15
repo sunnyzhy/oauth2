@@ -1,9 +1,11 @@
 package org.springframework.security.oauth.model;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,18 +16,18 @@ import java.util.List;
  * @author zhouyi
  * @date 2021/1/12 11:07
  */
-public class UserDetailsImpl implements UserDetails {
-    // 封装的数据库实体类
-    private UserDetail userDetail;
-
-    public UserDetailsImpl(UserDetail userDetail) {
-        this.userDetail = userDetail;
-    }
+@Data
+public class UserDetailsImpl implements UserDetails, Serializable {
+    private static final long serialVersionUID = 4125096758372084309L;
+    private Integer id;
+    private String username;
+    private String password;
+    private List<String> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> list = new ArrayList<>();
-        for (String role : userDetail.getRoles()) {
+        for (String role : roles) {
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role);
             list.add(grantedAuthority);
         }
@@ -34,12 +36,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return userDetail.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return userDetail.getUsername();
+        return username;
     }
 
     @Override

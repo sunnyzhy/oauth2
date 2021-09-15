@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: com.nimbusds:nimbus-jose-jwt:8.2.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../dev-tools/apache-maven-repository/com/nimbusds/nimbus-jose-jwt/8.2.1/nimbus-jose-jwt-8.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../dev-tools/apache-maven-repository/com/nimbusds/nimbus-jose-jwt/8.2.1/nimbus-jose-jwt-8.2.1.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../dev-tools/apache-maven-repository/com/nimbusds/nimbus-jose-jwt/8.2.1/nimbus-jose-jwt-8.2.1-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../dev-tools/apache-maven-repository/com/nimbusds/nimbus-jose-jwt/8.2.1/nimbus-jose-jwt-8.2.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../dev-tools/apache-maven-repository/com/nimbusds/nimbus-jose-jwt/8.2.1/nimbus-jose-jwt-8.2.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../dev-tools/apache-maven-repository/com/nimbusds/nimbus-jose-jwt/8.2.1/nimbus-jose-jwt-8.2.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
