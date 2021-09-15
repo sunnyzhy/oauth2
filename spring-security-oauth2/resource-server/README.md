@@ -32,12 +32,15 @@
       ```
       http://localhost:8092/message?access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IllLeDFWTDlNL0RDT3ZOWCt0OWxUQXJpUXJtVlhtSDl6b3FQQWFnMDh4U2s9In0.eyJzdWIiOiJhZG1pbiIsInVzZXJfbmFtZSI6ImFkbWluIiwic2NvcGUiOlsiMzAiXSwiaWQiOiIyMGRjOTNjNGYzN2Y0NzVhODExZTUyMTMwYjBlYjBiOCIsImV4cCI6MTYzMTcxMzM4MywiYXV0aG9yaXRpZXMiOlsiVVNFUiIsIkFETUlOIl0sImp0aSI6ImQyNzYyNDkzLWFjNGYtNDQyMi1iMDM0LWNiZjU1Y2FhYmNmZiIsImNsaWVudF9pZCI6Im1lc3NhZ2luZy1jbGllbnQifQ.C7SRAxnp9I5_5YhDrrqRSzvtCsB__k3erFS1BQN8E2QlM4zQpGLfYtNtUPjhlcc2fZ1yo4YGXhxdcAObspXgXPuQkZIya6_kkyD0WzrI8WFr3GzjWBxHHVs9Go9zM39RCwSOE2eVUiqVz8zFHdmZAI0rlBhwVBFYVWlmwJ4wPqltHpGj2ZYzTmThj3Mj8E34K1DhKk2VzQVr1RmB5V08nQqQEKLFQOAZDG6t7ehpkConAW4m6nJ-EkczZUX8fhu5WA8yJftSYP7KEjGl8m0Zkb4M8Afjpw8N5LrrH4aZC0u2MkucsDN3E6rAk8R8QwJUIw-n79SH5bYyg4-MeBduEw
       ```
+
       ![Params](../../images/token/token-01.png 'Params')
 
    - Postman - Authorization 方式
       1. 定义环境变量
+
          ![Environment](../../images/token/token-02.png 'Environment')
       2. 引用环境变量，并发送请求
+
          ![Authorization](../../images/token/token-03.png 'Authorization')
 
 ## 请求 /product
