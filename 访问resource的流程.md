@@ -1,4 +1,4 @@
-# 访问资源的流程
+# 访问 resource 的流程
 
 ## 1 FilterChainProxy#doFilter
 
