@@ -16,15 +16,18 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private final TokenStore tokenStore;
+    private final AuthenticationEntryPointImpl authenticationEntryPoint;
 
-    public ResourceServerConfig(TokenStore tokenStore) {
+    public ResourceServerConfig(TokenStore tokenStore, AuthenticationEntryPointImpl authenticationEntryPoint) {
         this.tokenStore = tokenStore;
+        this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources.tokenStore(tokenStore)
-                .authenticationEntryPoint(new AuthenticationEntryPointImpl());
+                // 自定义 AuthenticationEntryPoint，实现如果没有授权就直接跳转到认证页面。
+                .authenticationEntryPoint(authenticationEntryPoint);
     }
 
     @Override

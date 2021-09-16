@@ -1,4 +1,4 @@
-package org.springframework.security.oauth.entity;
+package org.springframework.security.oauth.model;
 
 import javax.persistence.*;
 
@@ -8,9 +8,6 @@ public class ClientAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /**
-     * 角色
-     */
     private String role;
 
     /**
@@ -28,18 +25,14 @@ public class ClientAuthority {
     }
 
     /**
-     * 获取角色
-     *
-     * @return role - 角色
+     * @return role
      */
     public String getRole() {
         return role;
     }
 
     /**
-     * 设置角色
-     *
-     * @param role 角色
+     * @param role
      */
     public void setRole(String role) {
         this.role = role;

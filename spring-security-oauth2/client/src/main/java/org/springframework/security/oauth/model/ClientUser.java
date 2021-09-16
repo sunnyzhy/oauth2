@@ -1,4 +1,4 @@
-package org.springframework.security.oauth.entity;
+package org.springframework.security.oauth.model;
 
 import javax.persistence.*;
 

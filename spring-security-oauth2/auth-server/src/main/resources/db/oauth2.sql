@@ -95,6 +95,7 @@ CREATE TABLE `oauth_client_details` (
 -- Records of oauth_client_details
 -- ----------------------------
 INSERT INTO `oauth_client_details` VALUES ('messaging-client', null, '$2a$10$YMmBTVIDGs7JC.W3O9l4U.fR/xjFm.xlC6ij2z3hTbpEiyyx91aji', 'READ,WRITE', 'authorization_code,refresh_token', 'http://localhost', null, '25200', '25200', null, 'READ,WRITE');
+INSERT INTO `oauth_client_details` VALUES ('client', null, '$2a$10$V8AI03CUWRQp9FF3PA9PYupmvIZ3KizZpTAQK41r.Vm7A2ZNMyImG', 'read,write', 'authorization_code,refresh_token', 'http://localhost:8080/authorized', null, '25200', '25200', null, 'read,write');
 
 -- ----------------------------
 -- Table structure for oauth_client_token

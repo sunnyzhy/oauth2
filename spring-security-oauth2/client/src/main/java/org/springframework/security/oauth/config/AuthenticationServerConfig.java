@@ -1,6 +1,5 @@
 package org.springframework.security.oauth.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -16,25 +15,30 @@ import org.springframework.security.oauth.service.UserDetailsServiceImpl;
  */
 @EnableWebSecurity
 public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private AuthenticationProviderImpl authenticationProvider;
+    private final PasswordEncoder passwordEncoder;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final AuthenticationProviderImpl authenticationProvider;
+
+    public AuthenticationServerConfig(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, AuthenticationProviderImpl authenticationProvider) {
+        this.passwordEncoder = passwordEncoder;
+        this.userDetailsService = userDetailsService;
+        this.authenticationProvider = authenticationProvider;
+    }
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/webjars/**");
+        web
+                .ignoring()
+                .antMatchers("/webjars/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll();
+                .formLogin()
+                .permitAll();
     }
 
     @Override
@@ -44,6 +48,7 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder);
         // 注册自定义认证
-		auth.authenticationProvider(authenticationProvider);
+        auth.authenticationProvider(authenticationProvider);
     }
+
 }

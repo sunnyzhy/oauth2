@@ -31,7 +31,7 @@ security:
   oauth2:
     resource:
       jwk:
-        key-set-uri: http://127.0.0.1:8090/oauth2/keys
+        key-set-uri: http://auth-server:8090/oauth2/keys
 
 oauth:
   token:

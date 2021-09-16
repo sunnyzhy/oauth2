@@ -1,14 +1,11 @@
 server:
   port: 8080
-  session:
-    cookie:
-      name: SESSIONID
 
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://20.0.0.106:3306/client?characterEncodeing=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://20.0.3.106:3306/client?characterEncodeing=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root
     druid:
@@ -26,13 +23,13 @@ security:
   oauth2:
     client:
       client-auth-code:
-        client-id: messaging-client
-        client-secret: user
+        client-id: client
+        client-secret: client
         grant-type: authorization_code
+        scope: read,write
         user-authorization-uri: http://auth-server:8090/oauth/authorize
         access-token-uri: http://auth-server:8090/oauth/token
-        scope: read, write
-        pre-established-redirect-uri: http://localhost:8080/auth
+        pre-established-redirect-uri: http://localhost:8080/authorized
         use-current-uri: false
 
 messages:

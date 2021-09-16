@@ -1,7 +1,6 @@
 package org.springframework.security.oauth.model;
 
 import lombok.Data;
-import org.springframework.security.oauth.entity.ClientUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;

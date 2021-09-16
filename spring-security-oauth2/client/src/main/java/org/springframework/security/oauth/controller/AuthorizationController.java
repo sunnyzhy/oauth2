@@ -15,19 +15,9 @@ public class AuthorizationController {
     @Resource(name = "authCodeRestTemplate")
     private OAuth2RestTemplate authCodeRestTemplate;
 
-    @GetMapping(value = "/")
-    public String root() {
-        return authorizationByAuthCode();
-    }
-
-    @GetMapping(value = "/auth", params = "grant_type=authorization_code")
-    public String authorizationByAuthCode() {
+    @GetMapping(value = "/authorized")
+    public String authorized() {
         String response = authCodeRestTemplate.getForObject(messagesBaseUri, String.class);
         return response;
-    }
-
-    @GetMapping(value = "/auth")
-    public String authorized() {
-        return authorizationByAuthCode();
     }
 }
