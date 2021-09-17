@@ -1,6 +1,6 @@
 # 客户端(第三方服务)访问 resource 的流程
 
-1. 在浏览器中访问客户端的 /authorized 接口（GET）
+1. 在浏览器中访问客户端的测试接口（GET）
    ```
    http://localhost:8080/authorized
    ```
@@ -15,7 +15,7 @@
    http://localhost:8080/login
    ```
 
-4. 浏览器重定向到客户端的 /authorized 接口（GET）
+4. 浏览器重定向到客户端的测试接口（GET）
    ```
    http://localhost:8080/authorized
    ```
@@ -40,7 +40,17 @@
    http://auth-server:8090/oauth/authorize?client_id=client&redirect_uri=http://localhost:8080/authorized&response_type=code&scope=read%20write&state=SEOb0F
    ```
 
-9. 浏览器重定向到客户端的 /authorized 接口（GET）
+9. 浏览器重定向到授权服务的 /oauth/authorize 接口（POST）
+
+   **如果不满足自动授权的条件，就执行本步骤 9; 否则，就直接转到步骤 10。**
+
+   **点授权之后，调用授权服务的 /oauth/authorize 接口。**
+
+   ```
+   http://auth-server:8090/oauth/authorize
+   ```
+
+10. 浏览器重定向到客户端的测试接口（GET）
    ```
    GET http://localhost:8080/authorized?code=S8cIMO&state=SEOb0F
    ```
