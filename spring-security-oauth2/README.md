@@ -10,7 +10,7 @@
 
 ## IMPORTANT
 
-Make sure to modify your **/etc/hosts** file to avoid problems with session cookie overwrites between **client** and **auth-server**. Simply add the entry **127.0.0.1 auth-server**
+Make sure to modify your ```/etc/hosts``` file to avoid problems with session cookie overwrites between ```client``` and ```auth-server```. Simply add the entry ```127.0.0.1 auth-server```
 
 ## 数据表
 
