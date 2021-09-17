@@ -22,7 +22,7 @@ mybatis:
 security:
   oauth2:
     client:
-      client-auth-code:
+      client-auth-code: # client-id,client-secret,grant-type,scope,redirect-uri 必须是在授权服务器上注册过的配置
         client-id: client
         client-secret: client
         grant-type: authorization_code

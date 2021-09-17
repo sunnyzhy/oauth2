@@ -51,7 +51,7 @@ CREATE TABLE `client_user` (
 -- ----------------------------
 -- Records of client_user
 -- ----------------------------
-INSERT INTO `client_user` VALUES ('1', 'admin', '$2a$10$qVF14zh7oxM6TT8blY6tN.G0zGG4MOHCNzhYAoEaGt/ZNYTydBWhi');
+INSERT INTO `client_user` VALUES ('1', 'user', '$2a$10$OrIAbKrGOkpyNcGqTb1uyOV6nqqJlsfcrLhslbcBvelMuBYP9lYym');
 
 -- ----------------------------
 -- Table structure for client_user_authority

@@ -64,7 +64,7 @@ oauth:
 
 ## 生成 token
 
-1. 启动授权服务: auth-server-0.0.1.jar
+1. 启动授权服务
    ```bash
    # nohup java -jar -XX:+HeapDumpOnOutOfMemoryError -Xmx128m -Xms128m ./spring-security-oauth2-auth-server-0.0.1.jar > /dev/null &
    ```
@@ -74,7 +74,7 @@ oauth:
    http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
    ```
    
-3. 输入用户名、密码进行认证
+3. 输入用户名(admin)、密码(admin)进行认证
 
 4. 授权（如果需要授权的话，否则跳过该步骤）
 

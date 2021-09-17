@@ -7,13 +7,28 @@
 
 ## 请求 /message
 
-1. 请求 http://localhost:8092/message
+1. 启动授权服务
+   ```bash
+   # nohup java -jar -XX:+HeapDumpOnOutOfMemoryError -Xmx128m -Xms128m ./spring-security-oauth2-auth-server-0.0.1.jar > /dev/null &
+   ```
 
-2. 跳转到授权服务的身份认证接口 http://localhost:8090/login
+2. 启动资源服务
+   ```bash
+   # nohup java -jar -XX:+HeapDumpOnOutOfMemoryError -Xmx128m -Xms128m ./spring-security-oauth2-resource-server-0.0.1.jar > /dev/null &
+   ```
 
-3. 身份认证成功之后，授权服务返回 code
+3. 在浏览器中访问资源服务的 /message 接口请求
+   ```
+   http://localhost:8092/message
+   ```
 
-4. 用 code 通过授权服务换取 access_token
+4. 浏览器重定向到**授权服务**的 /login 接口
+
+5. 输入**授权服务**的用户名(admin)、密码(admin)进行认证
+
+6. 授权服务返回 code
+
+7. 用 code 通过授权服务换取 access_token
    ```json
    {
         "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IllLeDFWTDlNL0RDT3ZOWCt0OWxUQXJpUXJtVlhtSDl6b3FQQWFnMDh4U2s9In0.eyJzdWIiOiJhZG1pbiIsInVzZXJfbmFtZSI6ImFkbWluIiwic2NvcGUiOlsiMzAiXSwiaWQiOiIyMGRjOTNjNGYzN2Y0NzVhODExZTUyMTMwYjBlYjBiOCIsImV4cCI6MTYzMTcxMzM4MywiYXV0aG9yaXRpZXMiOlsiVVNFUiIsIkFETUlOIl0sImp0aSI6ImQyNzYyNDkzLWFjNGYtNDQyMi1iMDM0LWNiZjU1Y2FhYmNmZiIsImNsaWVudF9pZCI6Im1lc3NhZ2luZy1jbGllbnQifQ.C7SRAxnp9I5_5YhDrrqRSzvtCsB__k3erFS1BQN8E2QlM4zQpGLfYtNtUPjhlcc2fZ1yo4YGXhxdcAObspXgXPuQkZIya6_kkyD0WzrI8WFr3GzjWBxHHVs9Go9zM39RCwSOE2eVUiqVz8zFHdmZAI0rlBhwVBFYVWlmwJ4wPqltHpGj2ZYzTmThj3Mj8E34K1DhKk2VzQVr1RmB5V08nQqQEKLFQOAZDG6t7ehpkConAW4m6nJ-EkczZUX8fhu5WA8yJftSYP7KEjGl8m0Zkb4M8Afjpw8N5LrrH4aZC0u2MkucsDN3E6rAk8R8QwJUIw-n79SH5bYyg4-MeBduEw",
@@ -27,7 +42,7 @@
    }
    ```
 
-5. 请求 http://localhost:8092/message 的时候需要携带 access_token (GET)
+8. 请求 http://localhost:8092/message 的时候需要携带 access_token (GET)
    - Postman - Params 方式，在环境变量的下拉列表中选择 "No Environment"
       ```
       http://localhost:8092/message?access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IllLeDFWTDlNL0RDT3ZOWCt0OWxUQXJpUXJtVlhtSDl6b3FQQWFnMDh4U2s9In0.eyJzdWIiOiJhZG1pbiIsInVzZXJfbmFtZSI6ImFkbWluIiwic2NvcGUiOlsiMzAiXSwiaWQiOiIyMGRjOTNjNGYzN2Y0NzVhODExZTUyMTMwYjBlYjBiOCIsImV4cCI6MTYzMTcxMzM4MywiYXV0aG9yaXRpZXMiOlsiVVNFUiIsIkFETUlOIl0sImp0aSI6ImQyNzYyNDkzLWFjNGYtNDQyMi1iMDM0LWNiZjU1Y2FhYmNmZiIsImNsaWVudF9pZCI6Im1lc3NhZ2luZy1jbGllbnQifQ.C7SRAxnp9I5_5YhDrrqRSzvtCsB__k3erFS1BQN8E2QlM4zQpGLfYtNtUPjhlcc2fZ1yo4YGXhxdcAObspXgXPuQkZIya6_kkyD0WzrI8WFr3GzjWBxHHVs9Go9zM39RCwSOE2eVUiqVz8zFHdmZAI0rlBhwVBFYVWlmwJ4wPqltHpGj2ZYzTmThj3Mj8E34K1DhKk2VzQVr1RmB5V08nQqQEKLFQOAZDG6t7ehpkConAW4m6nJ-EkczZUX8fhu5WA8yJftSYP7KEjGl8m0Zkb4M8Afjpw8N5LrrH4aZC0u2MkucsDN3E6rAk8R8QwJUIw-n79SH5bYyg4-MeBduEw
