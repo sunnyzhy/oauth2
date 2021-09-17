@@ -25,7 +25,7 @@
    http://auth-server:8090/oauth/authorize?client_id=messaging-client&redirect_uri=http://localhost:8080/authorized&response_type=code&scope=read%20write&state=lvo5NL
    ```
    
-6. 浏览器重定向到```授权```服务的 /login 接口（GET）
+6. 浏览器重定向到```授权服务```的 /login 接口（GET）
    ```
    http://auth-server:8090/login
    ```
