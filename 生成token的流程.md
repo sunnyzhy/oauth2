@@ -40,7 +40,7 @@ http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-cli
 
 ## 5 授权并调用 /oauth/authorize 接口（POST）
 
-**如果 autoapprove 为 false ，就打开 approve 授权界面；否则，就直接转到步骤 6 （后台自动授权）。**
+**如果不满足自动授权的条件，就执行本步骤 5; 否则，就直接转到步骤  6 （后台自动授权）。**
 
 **点授权之后，调用授权服务器的 /oauth/authorize 接口。**
 
