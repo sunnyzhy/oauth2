@@ -24,7 +24,7 @@ http://localhost:8090/login
 
 ## 3 登录并调用 /login 接口（POST）
 
-**输入用户名、密码，点登录之后，调用授权服务器的 /login 接口。**
+**输入用户名(admin)、密码(admin)，点登录之后，调用授权服务器的 /login 接口。**
 
 ```
 http://localhost:8090/login
@@ -32,7 +32,7 @@ http://localhost:8090/login
 
 ## 4 重定向到 /oauth/authorize 接口（GET）
 
-**浏览器又重定向到授权服务器的 /oauth/authorize 接口，即步骤 1 所访问的授权接口地址。**
+**浏览器又重定向到授权服务的 /oauth/authorize 接口，即步骤 1 所访问的授权接口地址。**
 
 ```
 http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
@@ -42,7 +42,7 @@ http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-cli
 
 **如果不满足自动授权的条件，就执行本步骤 5; 否则，就直接转到步骤  6 （后台自动授权）。**
 
-**点授权之后，调用授权服务器的 /oauth/authorize 接口。**
+**点授权之后，调用授权服务的 /oauth/authorize 接口。**
 
 ```
 http://localhost:8090/oauth/authorize
@@ -60,7 +60,7 @@ http://localhost?code=W636oE
 
 ## 7 获取 token 调用 /oauth/token 接口（POST）
 
-**调用授权服务器的 /oauth/token 接口。注意，grant_type=authorization_code。**
+**调用授权服务的 /oauth/token 接口。注意，grant_type=authorization_code。**
 
 1. **postman:**
    ```
