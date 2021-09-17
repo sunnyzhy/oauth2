@@ -10,7 +10,7 @@
    http://localhost:8080/login
    ```
 
-3. 输入**客户端**的用户名(admin)、密码(admin)进行认证（POST）
+3. 输入**客户端**的用户名(user)、密码(user)进行认证（POST）
    ```
    http://localhost:8080/login
    ```
