@@ -51,6 +51,6 @@
    ```
 
 10. 浏览器重定向到客户端的测试接口（GET）
-    ````
+    ```
     GET http://localhost:8080/authorized?code=S8cIMO&state=SEOb0F
     ```
