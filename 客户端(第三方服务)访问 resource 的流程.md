@@ -5,12 +5,12 @@
    http://localhost:8080/authorized
    ```
 
-2. 此时，浏览器会重定向到**客户端**的 /login 接口（GET）
+2. 此时，浏览器会重定向到```客户端```的 /login 接口（GET）
    ```
    http://localhost:8080/login
    ```
 
-3. 输入**客户端**的用户名(user)、密码(user)进行认证（POST）
+3. 输入```客户端```的用户名(user)、密码(user)进行认证（POST）
    ```
    http://localhost:8080/login
    ```
@@ -25,12 +25,12 @@
    http://auth-server:8090/oauth/authorize?client_id=messaging-client&redirect_uri=http://localhost:8080/authorized&response_type=code&scope=read%20write&state=lvo5NL
    ```
    
-6. 浏览器重定向到**授权**服务的 /login 接口（GET）
+6. 浏览器重定向到```授权```服务的 /login 接口（GET）
    ```
    http://auth-server:8090/login
    ```
 
-7. 输入**授权服务**的用户名(admin)、密码(admin)进行认证（POST）
+7. 输入```授权服务```的用户名(admin)、密码(admin)进行认证（POST）
    ```
    http://auth-server:8090/login
    ```
