@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.oauth.condition.JdbcCondition;
-import org.springframework.security.oauth.condition.JwtCondition;
-import org.springframework.security.oauth.condition.RedisCondition;
+import org.springframework.security.oauth.condition.token.store.JdbcCondition;
+import org.springframework.security.oauth.condition.token.store.JwtCondition;
+import org.springframework.security.oauth.condition.token.store.RedisCondition;
 import org.springframework.security.oauth.service.UserDetailsServiceImpl;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -20,8 +20,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
  * @author zhy
  */
 @Configuration
-@EnableAuthorizationServer
 @Conditional({JdbcCondition.class, JwtCondition.class, RedisCondition.class})
+@EnableAuthorizationServer
 public class BaseAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private JdbcClientDetailsService jdbcClientDetailsService;

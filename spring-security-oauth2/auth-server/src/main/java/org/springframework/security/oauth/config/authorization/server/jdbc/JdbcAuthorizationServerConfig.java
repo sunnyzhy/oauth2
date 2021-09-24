@@ -1,7 +1,7 @@
 package org.springframework.security.oauth.config.authorization.server.jdbc;
 
 import org.springframework.context.annotation.Conditional;
-import org.springframework.security.oauth.condition.JdbcCondition;
+import org.springframework.security.oauth.condition.token.store.JdbcCondition;
 import org.springframework.security.oauth.config.authorization.server.BaseAuthorizationServerConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;

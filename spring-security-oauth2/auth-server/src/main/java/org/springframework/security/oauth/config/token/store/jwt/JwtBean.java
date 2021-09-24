@@ -1,6 +1,6 @@
 package org.springframework.security.oauth.config.token.store.jwt;
 
-import org.springframework.security.oauth.condition.JwtCondition;
+import org.springframework.security.oauth.condition.token.store.JwtCondition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;

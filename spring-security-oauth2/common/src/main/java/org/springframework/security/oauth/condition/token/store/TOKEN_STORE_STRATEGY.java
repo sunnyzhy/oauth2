@@ -1,4 +1,4 @@
-package org.springframework.security.oauth.condition;
+package org.springframework.security.oauth.condition.token.store;
 
 /**
  * @author zhouyi

@@ -1,7 +1,7 @@
 package org.springframework.security.oauth.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.security.oauth.condition.JdbcCondition;
+import org.springframework.security.oauth.condition.token.store.JdbcCondition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;

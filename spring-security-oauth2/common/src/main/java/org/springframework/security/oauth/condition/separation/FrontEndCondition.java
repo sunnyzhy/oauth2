@@ -1,4 +1,4 @@
-package org.springframework.security.oauth.condition;
+package org.springframework.security.oauth.condition.separation;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -6,13 +6,14 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.security.oauth.util.ConditionUtil;
 
 /**
- * token 的存储策略是 jwt
+ * 前后端分离
+ *
  * @author zhouyi
  * @date 2021/1/25 14:28
  */
-public class JwtCondition implements Condition {
+public class FrontEndCondition implements Condition {
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        return ConditionUtil.matches(conditionContext, TOKEN_STORE_STRATEGY.JWT);
+        return ConditionUtil.matchesSeparation(conditionContext, FRONT_BACK_SEPARATION.FRONT_END);
     }
 }

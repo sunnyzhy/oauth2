@@ -1,6 +1,7 @@
 package org.springframework.security.oauth.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth.constant.HTTP_HEADER;
 import org.springframework.security.oauth.vo.ResponseVo;
@@ -29,11 +30,12 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setHeader(HTTP_HEADER.CORS.getKey(), HTTP_HEADER.CORS.getValue());
         httpServletResponse.setCharacterEncoding("UTF-8");
-        httpServletResponse.setStatus(401);
+        httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
         PrintWriter writer = httpServletResponse.getWriter();
         ResponseVo responseVo = new ResponseVo();
-        responseVo.setCode(-1);
-        responseVo.setMsg("failed");
+        responseVo.setCode(HttpStatus.UNAUTHORIZED.value());
+        responseVo.setMsg(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        responseVo.setData(HttpStatus.UNAUTHORIZED.getReasonPhrase());
         writer.write(objectMapper.writeValueAsString(responseVo));
         writer.flush();
         writer.close();

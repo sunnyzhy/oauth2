@@ -2,7 +2,7 @@ package org.springframework.security.oauth.config.authorization.server.redis;
 
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth.condition.RedisCondition;
+import org.springframework.security.oauth.condition.token.store.RedisCondition;
 import org.springframework.security.oauth.config.authorization.server.BaseAuthorizationServerConfig;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;

@@ -3,7 +3,7 @@ package org.springframework.security.oauth.config.token.store.jdbc;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth.condition.JdbcCondition;
+import org.springframework.security.oauth.condition.token.store.JdbcCondition;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
