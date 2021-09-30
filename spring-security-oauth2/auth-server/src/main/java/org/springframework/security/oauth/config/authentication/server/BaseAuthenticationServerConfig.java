@@ -13,14 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth.service.*;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author zhouyi
@@ -96,20 +91,4 @@ public class BaseAuthenticationServerConfig extends WebSecurityConfigurerAdapter
                 .failureHandler(authenticationFailureHandler).permitAll();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        // 允许跨域访问的 URL
-        List<String> allowedOriginsUrl = new ArrayList<>();
-        allowedOriginsUrl.add("http://localhost:8088");
-        allowedOriginsUrl.add("http://127.0.0.1:8088");
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        // 设置允许跨域访问的 URL
-        config.setAllowedOrigins(allowedOriginsUrl);
-        config.addAllowedHeader("*") ;
-        config.addAllowedMethod("*");
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
 }
