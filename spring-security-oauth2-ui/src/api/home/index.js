@@ -4,7 +4,7 @@ import {
 } from 'element-ui'
 
 const ajax = axios.create({
-  baseURL: 'http://localhost:8090',
+  baseURL: 'http://localhost',
   timeout: 30000
 })
 
