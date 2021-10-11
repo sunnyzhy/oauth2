@@ -42,6 +42,7 @@
    ```
 
 4. 浏览器地址跳转到 ```http://localhost:8090/login```
+   
    ![01.png](./images/oauth2/back-end/01.png '01.png')
 
 5. 输入用户名/密码 (admin/admin) 并登录
@@ -52,6 +53,7 @@
    ```
 
 7. 获取 token
+   
    ![02.png](./images/oauth2/back-end/02.png '02.png')
 
 ### 前后端分离
@@ -111,13 +113,17 @@
    ```
 
 6. 浏览器地址跳转到 ```http://localhost:8088/auth/login```
+   
    ![01.png](./images/oauth2/front-end/01.png '01.png')
 
 7. 输入用户名/密码 (admin/admin) 并登录
+   
    ![02.png](./images/oauth2/front-end/02.png '02.png')
 
 8. 获取 code
+   
    ![03.png](./images/oauth2/front-end/03.png '03.png')
 
 9. 获取 token
+   
    ![04.png](./images/oauth2/front-end/04.png '04.png')
