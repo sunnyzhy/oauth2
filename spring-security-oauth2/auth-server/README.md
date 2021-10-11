@@ -99,3 +99,54 @@ oauth:
       ```bash
       # curl -X POST -d "grant_type=authorization_code&code=W636oE&client_id=messging-client&client_secret=secret&redirect_uri=http://localhost" http://localhost:8090/oauth/token
       ```
+
+## 前后端分离配置
+
+### 示例代码里的 FRONT_BACK_SEPARATION
+
+```java
+public enum FRONT_BACK_SEPARATION {
+    BACK_END(0, "back_end", "前后端不分离"),
+    FRONT_END(1, "front_end", "前后端分离");
+}
+```
+
+### 通过修改 application.yml 来配置是否前后端分离
+
+```yml
+oauth:
+  front-and-back-separation: FRONT_END # FRONT_END: 前后端分离, 使用自定义的认证页面; BACK_END: 使用 spring-security 默认的认证页面
+```
+
+## 跨域配置
+
+### 示例代码里的 CORS_STRATEGY
+
+```java
+public enum CORS_STRATEGY {
+    SERVER(0, "SERVER", "服务端实现跨域"),
+    NGINX(1, "NGINX", "Nginx代理实现跨域");
+}
+```
+
+### 通过修改 application.yml 来配置跨域策略
+
+```yml
+cors:
+  strategy: NGINX # SERVER:服务端实现跨域; NGINX:Nginx代理实现跨域
+```
+
+### Nginx 配置代理跨域
+
+```conf
+location /auth {
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+    add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+    if ($request_method = 'OPTIONS') {
+        return 200;
+    }
+
+    proxy_pass http://localhost:8090;
+}
+```
