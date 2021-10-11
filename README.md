@@ -66,6 +66,7 @@
       # npm run dev
        I  Your application is running here: http://localhost:8088
       ```
+	  在浏览器地址栏里输入 ```http://localhost:8088/```, 地址会跳转到 ```http://localhost:8088/#/auth/login```
    - 方法 2
       ```bash
       # cd spring-security-oauth2-ui
@@ -73,6 +74,7 @@
       # npm run build
       # mv dist /usr/local/nginx/html
       ```
+	  在浏览器地址栏里输入 ```https://localhost/dist```, 地址会跳转到 ```http://localhost/dist/#/auth/login```
 
 2. 配置 nginx 代理跨域
    ```bash
@@ -93,6 +95,8 @@
 
 3. 修改 spring-security-oauth2\auth-server 的配置文件为前后端分离
    ```yml
+   login:
+     page-url: http://localhost:8088/#/auth/login # 自定义的认证页面
    oauth:
      front-and-back-separation: FRONT_END # FRONT_END: 前后端分离, 使用自定义的认证页面; BACK_END: 使用 spring-security 默认的认证页面
    ```
@@ -112,7 +116,7 @@
    http://localhost:8090/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
    ```
 
-6. 浏览器地址跳转到 ```http://localhost:8088/auth/login```
+6. 浏览器地址跳转到 ```http://localhost:8088/#/auth/login```
    
    ![01.png](./images/oauth2/front-end/01.png '01.png')
 

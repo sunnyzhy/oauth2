@@ -11,7 +11,7 @@
           v-model='formDataCode.clientId'
           autoComplete='on'
           placeholder='clientId'>
-          <i slot='prefix' class='iconfont icon-user'></i>
+          <i slot='prefix' class='el-icon-user'></i>
         </el-input>
       </el-form-item>
       <el-form-item>
@@ -25,7 +25,7 @@
           v-model='formDataToken.clientId'
           autoComplete='on'
           placeholder='clientId'>
-          <i slot='prefix' class='iconfont icon-user'></i>
+          <i slot='prefix' class='el-icon-user'></i>
         </el-input>
       </el-form-item>
       <el-form-item prop='clientSecret' style='margin-bottom: 22px'>
@@ -36,7 +36,7 @@
           v-model='formDataToken.clientSecret'
           autoComplete='off'
           placeholder='clientSecret'>
-          <i slot='prefix' class='iconfont icon-user'></i>
+          <i slot='prefix' class='el-icon-lock'></i>
         </el-input>
       </el-form-item>
       <el-form-item prop='code' style='margin-bottom: 22px'>
@@ -47,7 +47,7 @@
           v-model='formDataToken.code'
           autoComplete='off'
           placeholder='code'>
-          <i slot='prefix' class='iconfont icon-user'></i>
+          <i slot='prefix' class='el-icon-chat-round'></i>
         </el-input>
       </el-form-item>
       <el-form-item>

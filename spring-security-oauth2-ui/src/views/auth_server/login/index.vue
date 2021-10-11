@@ -11,7 +11,7 @@
           v-model='loginForm.userName'
           autoComplete='on'
           placeholder='用户名'>
-          <i slot='prefix' class='iconfont icon-user'></i>
+          <i slot='prefix' class='el-icon-user'></i>
         </el-input>
       </el-form-item>
       <el-form-item prop='password' style='margin-bottom: 22px'>
@@ -22,7 +22,7 @@
           v-model='loginForm.password'
           autoComplete='off'
           placeholder='密码'>
-          <i slot='prefix' class='iconfont icon-password'></i>
+          <i slot='prefix' class='el-icon-lock'></i>
         </el-input>
       </el-form-item>
 

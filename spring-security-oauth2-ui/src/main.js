@@ -8,7 +8,6 @@ import i18n from './lang'
 import ElementUI from 'element-ui'
 import JsonViewer from 'vue-json-viewer'
 import 'element-ui/lib/theme-chalk/index.css'
-import './assets/iconfont/iconfont.css'
 import { getToken, getCookie } from './utils/token'
 
 Vue.config.productionTip = false

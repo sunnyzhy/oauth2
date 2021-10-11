@@ -49,7 +49,7 @@ oauth:
   front-and-back-separation: FRONT_END # FRONT_END: 前后端分离, 使用自定义的认证页面; BACK_END: 使用 spring-security 默认的认证页面
 
 login:
-  page-url: http://localhost:8088/auth/login # 自定义的认证页面
+  page-url: http://localhost:8088/#/auth/login # 自定义的认证页面
   interface-url: http://localhost:8090/login
 
 auth:
