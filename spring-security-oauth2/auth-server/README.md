@@ -136,7 +136,9 @@ cors:
   strategy: NGINX # SERVER:服务端实现跨域; NGINX:Nginx代理实现跨域
 ```
 
-### Nginx 配置代理跨域
+### Nginx 配置反向代理实现跨域
+
+***注: 如果前端部署在 nginx 服务里，那么前端相当于不跨域，和正常请求一样，无需额外配置。***
 
 ```conf
 location /auth {
