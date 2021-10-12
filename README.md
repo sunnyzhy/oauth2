@@ -59,7 +59,7 @@
 ### 前后端分离
 
 1. 启动前端
-   - 方法 1
+   - 方法 1, <font color="red" style="font-weight:bold">需要执行步骤 2 配置 nginx 反向代理实现跨域</font>
       ```bash
       # cd spring-security-oauth2-ui
       # cnpm install
@@ -67,7 +67,7 @@
        I  Your application is running here: http://localhost:8088
       ```
 	  在浏览器地址栏里输入 ```http://localhost:8088/```, 地址会跳转到 ```http://localhost:8088/#/auth/login```
-   - 方法 2
+   - 方法 2, <font color="red" style="font-weight:bold">前端相当于不跨域，和正常请求一样，无需额外配置</font>
       ```bash
       # cd spring-security-oauth2-ui
       # cnpm install
@@ -76,7 +76,7 @@
       ```
 	  在浏览器地址栏里输入 ```https://localhost/dist```, 地址会跳转到 ```http://localhost/dist/#/auth/login```
 
-2. 配置 nginx 代理跨域
+2. 配置 nginx 反向代理实现跨域
    ```bash
    # vim /usr/local/nginx/conf/nginx.conf
    location /auth {
