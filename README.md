@@ -59,7 +59,7 @@
 ### 前后端分离
 
 1. 启动前端
-   - 方法 1, ***需要执行步骤 2 配置 nginx 反向代理实现跨域</font>***
+   - 方法 1, ***需要执行步骤 2 配置 nginx 反向代理实现跨域***
       ```bash
       # cd spring-security-oauth2-ui
       # cnpm install
