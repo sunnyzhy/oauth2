@@ -1,24 +1,19 @@
-import axios from 'axios'
+import fetch from '@/utils/fetch'
 
-const ajax = axios.create({
-  baseURL: 'http://localhost/client',
-  timeout: 30000
-})
-
-export function login (userName, password) {
+export function login (user) {
   const data = {
-    userName,
-    password
+    username: user.userName,
+    password: user.password
   }
-  return ajax({
-    url: '/login',
+  return fetch({
+    url: '/client/login',
     method: 'post',
     data
   })
 }
 
 export function logout (user) {
-  return ajax({
+  return fetch({
     url: '/auth/login',
     method: 'post',
     data: {

@@ -1,25 +1,7 @@
-import axios from 'axios'
-
-const ajax = axios.create({
-  baseURL: 'http://localhost',
-  timeout: 30000
-})
-
-ajax.interceptors.response.use(
-  response => {
-    const resp = response.data
-    if (resp.code === 0) {
-      return resp.data
-    } else {
-      return Promise.reject(resp.msg)
-    }
-  },
-  error => {
-    return Promise.reject(error)
-  })
+import fetch from '@/utils/fetch'
 
 export function login (user) {
-  return ajax({
+  return fetch({
     url: '/auth/login',
     method: 'post',
     data: {
@@ -30,7 +12,7 @@ export function login (user) {
 }
 
 export function logout (user) {
-  return ajax({
+  return fetch({
     url: '/auth/login',
     method: 'post',
     data: {
@@ -45,7 +27,7 @@ export function logout (user) {
 //     username: user.userName,
 //     password: user.password
 //   }
-//   return ajax({
+//   return fetch({
 //     url: '/login',
 //     method: 'post',
 //     data,

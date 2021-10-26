@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.oauth.condition.cors.ServerCorsCondition;
+import org.springframework.security.oauth.condition.cors.ServerCorsCondition;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -18,18 +18,17 @@ import java.util.List;
  */
 @Data
 @Configuration
-//@ConfigurationProperties(prefix = "cors.allowed")
-//@Conditional(ServerCorsCondition.class)
+@ConfigurationProperties(prefix = "cors.allowed")
+@Conditional(ServerCorsCondition.class)
 public class CorsConfig {
-//    private List<String> originsUrl;
+    private List<String> originsUrl;
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         // 设置允许跨域访问的 URL
-//        config.setAllowedOrigins(originsUrl);
-        config.addAllowedOriginPattern("*");
+        config.setAllowedOrigins(originsUrl);
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

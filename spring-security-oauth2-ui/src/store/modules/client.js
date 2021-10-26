@@ -1,16 +1,20 @@
 import {
   login,
   logout
-} from '@/api/auth_server/login'
+} from '@/api/client/login'
 
 import {
-  getToken
+  getToken,
+  removeToken,
+  getCookie,
+  setCookie,
+  removeCookie
 } from '@/utils/token'
 
 const client = {
   state: {
     username: '',
-    cookie: '',
+    cookie: getCookie(),
     token: getToken()
   },
 
@@ -27,7 +31,7 @@ const client = {
   },
 
   actions: {
-    login ({
+    loginClient ({
       commit
     }, user) {
       commit('SET_USERNAME', '')
@@ -37,16 +41,17 @@ const client = {
         login(user).then(response => {
           commit('SET_USERNAME', response.username)
           commit('SET_COOKIE', response.cookie)
+          setCookie(response.cookie)
           resolve()
         }).catch(error => {
           reject(error)
         })
       })
     },
-    refresh ({ commit }) {
+    refreshClient ({ commit }) {
 
     },
-    logout ({
+    logoutClient ({
       commit,
       state
     }) {
@@ -58,6 +63,8 @@ const client = {
           commit('SET_USERNAME', '')
           commit('SET_COOKIE', '')
           commit('SET_TOKEN', '')
+          removeToken()
+          removeCookie()
           resolve()
         }).catch(error => {
           reject(error)

@@ -46,7 +46,10 @@ oauth:
   token:
     store:
       strategy: JDBC # MEMORY,JDBC,JWT,REDIS
-  front-and-back-separation: FRONT_END # FRONT_END: 前后端分离, 使用自定义的认证页面; BACK_END: 使用 spring-security 默认的认证页面
+  http:
+    permit: /oauth2/keys,/oauth/**,/css/**,/js/**,/auth/**,/images/**
+    login-page: /oauth/login
+    login-processing-url: /oauth/login/process
 
 login:
   page-url: http://localhost:8088/#/auth/login # 自定义的认证页面

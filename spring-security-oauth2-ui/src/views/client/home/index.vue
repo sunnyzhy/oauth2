@@ -10,7 +10,7 @@
           name="username"
           v-model="loginForm.userName"
           autoComplete="on"
-          placeholder="用户名">
+          placeholder="用户名client index">
           <i slot="prefix" class="iconfont icon-user"></i>
         </el-input>
       </el-form-item>
@@ -21,7 +21,7 @@
           type="password"
           v-model="loginForm.password"
           autoComplete="off"
-          placeholder="密码">
+          placeholder="密码client index">
           <i slot="prefix" class="iconfont icon-password"></i>
         </el-input>
       </el-form-item>
@@ -40,21 +40,22 @@ export default {
   data () {
     return {
       loginForm: {
-        userName: 'user',
-        password: 'user'
+        userName: '',
+        password: ''
       },
       loading: false
     }
   },
   methods: {
     doLogin () {
-      this.$store.dispatch('loginClient', this.loginForm)
+      window.location.href = 'http://localhost/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost'
+      this.$store.dispatch('Login', this.loginForm)
         .then(() => {
-          if (this.$store.state.authServer.cookie.length === 0) {
+          if (this.$store.state.user.token.length === 0) {
             this.$message.error('用户名或密码错误')
           } else {
             this.$router.push({
-              path: '/client/index'
+              path: '/'
             })
             this.$message({
               message: 'success',

@@ -23,8 +23,10 @@ const whiteList = ['/auth/login', '/client/login']
 
 router.beforeEach((to, from, next) => {
   if (getToken() || getCookie()) {
-    if (to.path === '/auth/login' || to.path === '/client/login') {
+    if (to.path === '/auth/login') {
       next({ path: '/' })
+    } else if (to.path === '/client/login') {
+      next({ path: '/client/index' })
     } else {
       next()
     }
