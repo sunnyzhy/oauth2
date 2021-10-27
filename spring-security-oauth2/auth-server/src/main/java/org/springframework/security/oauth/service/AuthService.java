@@ -10,6 +10,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth.util.ResponseVoUtil;
 import org.springframework.security.oauth.vo.*;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
@@ -36,11 +37,13 @@ public class AuthService {
     private final JdbcClientDetailsService jdbcClientDetailsService;
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthService(JdbcClientDetailsService jdbcClientDetailsService, ObjectMapper objectMapper, RestTemplate restTemplate) {
+    public AuthService(JdbcClientDetailsService jdbcClientDetailsService, ObjectMapper objectMapper, RestTemplate restTemplate, PasswordEncoder passwordEncoder) {
         this.jdbcClientDetailsService = jdbcClientDetailsService;
         this.objectMapper = objectMapper;
         this.restTemplate = restTemplate;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public ResponseVo<LoginResponseVo> login(LoginRequestVo loginRequestVo) {
@@ -69,7 +72,7 @@ public class AuthService {
         }
         // 提取 cookie
         List<String> cookieList = response.getHeaders().get("Set-Cookie");
-        if (cookieList == null && cookieList.isEmpty()) {
+        if (cookieList == null || cookieList.isEmpty()) {
             return ResponseVoUtil.error(-1, "login failed!");
         }
         String cookie = cookieList.get(0);
@@ -167,7 +170,10 @@ public class AuthService {
             return ResponseVoUtil.error(-1, "fetch client failed!");
         }
         if (clientDetails == null) {
-            return ResponseVoUtil.error(-1, "invalid client_id");
+            return ResponseVoUtil.error(-1, "authentication failed!");
+        }
+        if (!passwordEncoder.matches(tokenRequestVo.getClientSecret(), clientDetails.getClientSecret())) {
+            return ResponseVoUtil.error(-1, "authentication failed!");
         }
         // 封装请求的参数
         HttpHeaders headers = new HttpHeaders();
@@ -200,6 +206,4 @@ public class AuthService {
         }
         return ResponseVoUtil.success(tokenResponseVo);
     }
-
-
 }

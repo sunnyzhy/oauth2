@@ -1,4 +1,4 @@
-import fetch from '@/utils/fetch'
+import fetch from '@/utils/client/fetch'
 
 export function login (user) {
   const data = {

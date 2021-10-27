@@ -1,6 +1,7 @@
 const getters = {
-  username: state => state.auth_server.username,
-  cookie: state => state.auth_server.cookie,
-  token: state => state.auth_server.token
+  username: state => state.server.username,
+  cookie: state => state.server.cookie,
+  token: state => state.server.token,
+  usernameClient: state => state.client.username
 }
 export default getters

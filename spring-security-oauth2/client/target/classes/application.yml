@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://20.0.3.106:3306/client?characterEncodeing=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    druid:
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      filter:
+        stat:
+          enabled: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+security:
+  oauth2:
+    client:
+      client-auth-code: # client-id,client-secret,grant-type,scope,redirect-uri 必须是在授权服务器上注册过的配置
+        client-id: client
+        client-secret: client
+        grant-type: authorization_code
+        scope: read,write
+        user-authorization-uri: http://auth-server:8090/oauth/authorize
+        access-token-uri: http://auth-server:8090/oauth/token
+        pre-established-redirect-uri: http://localhost:8080/auth/token
+        use-current-uri: false
+
+messages:
+  base-uri: http://localhost:8092/message
+
+oauth:
+  http:
+    permit: /oauth2/keys,/oauth/**,/css/**,/js/**,/auth/**,/images/**
+    login-page: /oauth/login
+    login-processing-url: /oauth/login/process

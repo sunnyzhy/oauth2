@@ -29,8 +29,14 @@ security:
         scope: read,write
         user-authorization-uri: http://auth-server:8090/oauth/authorize
         access-token-uri: http://auth-server:8090/oauth/token
-        pre-established-redirect-uri: http://localhost:8080/authorized
+        pre-established-redirect-uri: http://localhost:8080/auth/token
         use-current-uri: false
 
 messages:
   base-uri: http://localhost:8092/message
+
+oauth:
+  http:
+    permit: /css/**,/js/**,/images/**,/oauth/**,/auth/**
+    login-page: /oauth/login
+    login-processing-url: /oauth/login/process

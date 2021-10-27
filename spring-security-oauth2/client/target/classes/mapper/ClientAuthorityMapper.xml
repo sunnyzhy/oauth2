@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springframework.security.oauth.mapper.ClientAuthorityMapper">
+  <resultMap id="BaseResultMap" type="org.springframework.security.oauth.model.ClientAuthority">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
+
+  <select id="selectRole" resultMap="BaseResultMap">
+    SELECT * FROM client_authority a
+    INNER JOIN client_user_authority ua ON a.id = ua.authority_id
+    INNER JOIN client_user u ON ua.user_id = u.id
+    WHERE u.id = #{userId};
+  </select>
+</mapper>
