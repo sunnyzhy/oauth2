@@ -61,6 +61,16 @@ oauth2.keystore
 
 出现了一条警告信息，接着执行下面的操作。
 
+通过证书文件生成证书请求:
+
+```bash
+# keytool -certreq -sigalg SHA256withRSA -alias oauth2-auth-key -keystore oauth2.keystore -file oauth2.csr
+Enter source keystore password:  zhy123
+
+# ls /usr/local/jks
+oauth2.keystore oauth2.csr
+```
+
 ## 2. 从其他密钥库导入一个或所有条目
 命令行格式 :
 ```bash
