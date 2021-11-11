@@ -7,6 +7,35 @@ OAuth2 和 zuul 结合使用的时候，OAuth2 作为认证授权服务(集群�
 1. 对 client 的增、删、必、查操作走 zuul (也可以走 nginx，但是由于不受 session 限制，所以走 zuul)
 2. 对 client 的认证授权操作走 nginx
 
+nginx.conf
+
+```conf
+http {
+   upstream  lb-oauth {
+       server    192.168.0.10:8090;
+       server    192.168.0.11:8090;
+   }
+
+   server {
+       listen       80;
+       server_name  localhost;
+
+       location /oauth {
+        proxy_pass http://lb-oauth;
+        proxy_redirect default;
+      }
+
+    }
+
+}
+```
+
+获取授权码:
+
+```
+http://localhost/oauth/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
+```
+
 ## 原理分析
 
 ### 1 cookie/session
