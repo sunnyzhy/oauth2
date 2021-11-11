@@ -7,6 +7,8 @@ OAuth2 和 zuul 结合使用的时候，OAuth2 作为认证授权服务(集群�
 1. 对 client 的增、删、必、查操作走 zuul (也可以走 nginx，但是由于不受 session 限制，所以走 zuul)
 2. 对 client 的认证授权操作走 nginx
 
+### OAuth2 负载均衡
+
 nginx.conf
 
 ```conf
