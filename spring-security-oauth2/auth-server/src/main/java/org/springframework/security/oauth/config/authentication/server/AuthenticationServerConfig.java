@@ -21,12 +21,14 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthenticationProviderImpl authenticationProvider;
     private final OAuthConfig oAuthConfig;
+    private final AuthenticationSuccessHandlerImpl successHandler;
 
-    public AuthenticationServerConfig(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, AuthenticationProviderImpl authenticationProvider, OAuthConfig oAuthConfig) {
+    public AuthenticationServerConfig(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, AuthenticationProviderImpl authenticationProvider, OAuthConfig oAuthConfig, AuthenticationSuccessHandlerImpl successHandler) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationProvider = authenticationProvider;
         this.oAuthConfig = oAuthConfig;
+        this.successHandler = successHandler;
     }
 
     @Override
@@ -57,6 +59,7 @@ public class AuthenticationServerConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage(oAuthConfig.getLoginPage())
                 .loginProcessingUrl(oAuthConfig.getLoginProcessingUrl())
+                .successHandler(successHandler)
                 .permitAll();
     }
 

@@ -60,13 +60,13 @@ CREATE TABLE `oauth_access_token` (
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_approvals`;
 CREATE TABLE `oauth_approvals` (
-  `user_id` varchar(256) DEFAULT NULL,
-  `client_id` varchar(256) DEFAULT NULL,
-  `scope` varchar(256) DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL,
-  `expires_at` timestamp NULL DEFAULT NULL,
-  `last_modified_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    `userId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `clientId` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `scope` varchar(256) DEFAULT NULL,
+    `status` varchar(10) DEFAULT NULL,
+    `expiresAt` timestamp NULL DEFAULT NULL,
+    `lastModifiedAt` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- ----------------------------
 -- oauth_client_details 中 client_id = messaging-client 的原始密码是 secret

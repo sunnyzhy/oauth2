@@ -1,24 +1,17 @@
 package org.springframework.security.oauth.config.token.store.jdbc;
 
-import org.springframework.security.oauth.service.TokenEnhancerImpl;
+import org.springframework.context.annotation.*;
 import org.springframework.security.oauth.condition.token.store.JdbcCondition;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.approval.*;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.util.Arrays;
 
 /**
  * @author zhouyi
@@ -29,11 +22,6 @@ import java.util.Arrays;
 public class JdbcBean {
     @Resource
     private DataSource dataSource;
-    private final TokenEnhancerImpl tokenEnhancer;
-
-    public JdbcBean(TokenEnhancerImpl tokenEnhancer) {
-        this.tokenEnhancer = tokenEnhancer;
-    }
 
     /**
      * table: oauth_client_details
@@ -101,24 +89,5 @@ public class JdbcBean {
     @Bean
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
-    }
-
-    /**
-     * tokenServices 需要与 tokenStore、tokenEnhancer 关联，这三者的存储模式(jdbc、jwt)必须一致
-     *
-     * @return
-     */
-    @Bean
-    public AuthorizationServerTokenServices tokenServices() {
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setClientDetailsService(jdbcClientDetailsService());//客户端详情服务
-        tokenServices.setSupportRefreshToken(true);//支持刷新令牌
-        //service.setReuseRefreshToken(true); // 复用refresh token
-        tokenServices.setTokenStore(tokenStore());//令牌存储策略
-        //令牌增强
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer));
-        tokenServices.setTokenEnhancer(tokenEnhancerChain);
-        return tokenServices;
     }
 }
