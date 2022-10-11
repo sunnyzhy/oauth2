@@ -8,9 +8,9 @@
 http://localhost:8090/oauth2/authorize?response_type=code&client_id=messaging-client&redirect_uri=http://localhost
 ```
 
-- response_type=code : **必须**，请求的响应类型为 authorization code
-- client_id=messaging-client : **必须**，在授权服务器上注册的 client_id
-- redirect_uri=http://localhost : **必须**，在授权服务器上注册的重定向地址
+- ```response_type=code``` : **必须**，请求的响应类型为 authorization code
+- ```client_id=messaging-client``` : **必须**，在授权服务器上注册的 client_id
+- ```redirect_uri=http://localhost``` : **必须**，在授权服务器上注册的重定向地址
 
 ## 2 重定向到 /oauth/login 接口（GET）
 
@@ -78,11 +78,11 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
    # curl -X POST -d "grant_type=authorization_code&code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0&client_id=messging-client&client_secret=secret&redirect_uri=http://localhost" http://localhost:8090/oauth2/token
    ```
 
-- grant_type=authorization_code : **必须**，授权码模式(authorization code)
-- code=W636oE : **必须**，授权服务器返回的授权码
-- client_id=messaging-client : **必须**，在授权服务器上注册的 client_id
-- client_secret=secret : **必须**，在授权服务器上注册的 secret
-- redirect_uri=http://localhost : **必须**，在授权服务器上注册的重定向的地址
+- ```grant_type=authorization_code``` : **必须**，授权码模式(authorization code)
+- ```code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0``` : **必须**，授权服务器返回的授权码
+- ```client_id=messaging-client``` : **必须**，在授权服务器上注册的 client_id
+- ```client_secret=secret``` : **必须**，在授权服务器上注册的 secret
+- ```redirect_uri=http://localhost``` : **必须**，在授权服务器上注册的重定向的地址
    
 成功获取 token 如下: 
 
@@ -115,10 +115,10 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
    # curl -X POST -d "grant_type=refresh_token&refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj&client_id=messaging-client&client_secret=secret" http://localhost:8090/oauth2/token
    ```
 
-- grant_type=refresh_token : **必须**，刷新 token
-- refresh_token=uIOk2gzINbjYc5SWBvvId_xXWK0 : **必须**，获取 token 时，授权服务器返回的 refresh_token
-- client_id=messaging-client : **必须**，在授权服务器上注册的 client_id
-- client_secret=secret : **必须**，在授权服务器上注册的 secret
+- ```grant_type=refresh_token``` : **必须**，刷新 token
+- ```refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj``` : **必须**，获取 token 时，授权服务器返回的 refresh_token
+- ```client_id=messaging-client``` : **必须**，在授权服务器上注册的 client_id
+- ```client_secret=secret``` : **必须**，在授权服务器上注册的 secret
 
 刷新 token 如下：
 
