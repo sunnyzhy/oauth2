@@ -48,5 +48,5 @@ curl -X POST  -H "Content-Type: application/json" -d '{"clientId":"messaging-cli
 4. 调用 userinfo:
 
    ```bash
-   curl -X GET -H "Authorization: Bearer <ACCESS_TOKEN>" http://localhost:8080/oauth/userinfo
+   curl -X GET -H "Authorization: Bearer <ID_TOKEN>" http://localhost:8080/oauth/userinfo
    ```

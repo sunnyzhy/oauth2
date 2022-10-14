@@ -61,6 +61,9 @@ public class CustomJdbcOAuth2AuthorizationService extends JdbcOAuth2Authorizatio
         if (isRefreshToken(authorization)) {
             keys.add(buildKey(OAuth2ParameterNames.REFRESH_TOKEN, authorization.getRefreshToken().getToken().getTokenValue()));
         }
+        if (isOidcIdToken(authorization)) {
+            keys.add(buildKey(OidcParameterNames.ID_TOKEN, authorization.getToken(OidcIdToken.class).getToken().getTokenValue()));
+        }
         redisTemplate.delete(keys);
     }
 
