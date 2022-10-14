@@ -10,10 +10,13 @@ import com.zhy.util.JwkUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.core.OAuth2TokenType;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
@@ -38,6 +41,11 @@ public class JwtConfig {
     }
 
     @Bean
+    public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
+    }
+
+    @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
         return context -> {
             CustomUser user = (CustomUser) context.getPrincipal().getPrincipal();
@@ -52,6 +60,15 @@ public class JwtConfig {
                 String id = UUID.randomUUID().toString().replaceAll("-", "");
                 claims.claim("sub", user.getUsername());
                 claims.claim("id", id);
+                claims.claim("userId", user.getUserId());
+                claims.claim("email", user.getEmail());
+                claims.claim("phone", user.getPhone());
+            }
+            if (context.getTokenType().getValue().equals(OidcParameterNames.ID_TOKEN)) {
+                // TODO
+                // 添加用户的其它信息
+
+                claims.claim("sub", user.getUsername());
                 claims.claim("userId", user.getUserId());
                 claims.claim("email", user.getEmail());
                 claims.claim("phone", user.getPhone());

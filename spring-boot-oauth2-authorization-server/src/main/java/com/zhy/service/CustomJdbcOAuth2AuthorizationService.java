@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -41,6 +43,11 @@ public class CustomJdbcOAuth2AuthorizationService extends JdbcOAuth2Authorizatio
             long expires = ChronoUnit.SECONDS.between(refreshToken.getIssuedAt(), refreshToken.getExpiresAt());
             redisTemplate.opsForValue().set(buildKey(OAuth2ParameterNames.REFRESH_TOKEN, refreshToken.getTokenValue()), refreshToken, expires, TimeUnit.SECONDS);
         }
+        if (isOidcIdToken(authorization)) {
+            OidcIdToken oidcIdToken = authorization.getToken(OidcIdToken.class).getToken();
+            long expires = ChronoUnit.SECONDS.between(oidcIdToken.getIssuedAt(), oidcIdToken.getExpiresAt());
+            redisTemplate.opsForValue().set(buildKey(OidcParameterNames.ID_TOKEN, oidcIdToken.getTokenValue()), oidcIdToken, expires, TimeUnit.SECONDS);
+        }
     }
 
     @Override
@@ -63,6 +70,10 @@ public class CustomJdbcOAuth2AuthorizationService extends JdbcOAuth2Authorizatio
 
     private boolean isRefreshToken(OAuth2Authorization authorization) {
         return authorization.getToken(OAuth2RefreshToken.class) != null;
+    }
+
+    private boolean isOidcIdToken(OAuth2Authorization authorization) {
+        return authorization.getToken(OidcIdToken.class) != null;
     }
 
     private String buildKey(String type, String token) {

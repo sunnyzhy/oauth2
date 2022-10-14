@@ -32,15 +32,21 @@ curl -X POST  -H "Content-Type: application/json" -d '{"clientId":"messaging-cli
 
 ## 获取 token
 
-1. 获取 code: 在浏览器的地址栏输入 ```http://localhost:8080/oauth2/authorize?response_type=code&client_id=messaging-client&redirect_uri=https://www.baidu.com```, ```用户名/密码:admin/admin```
+1. 获取 code: 在浏览器的地址栏输入 ```http://localhost:8080/oauth2/authorize?response_type=code&scope=openid&client_id=messaging-client&redirect_uri=https://www.baidu.com```, ```用户名/密码:admin/admin```
 
 2. 获取 token:
    ```bash
-   curl -X POST -d "grant_type=authorization_code&code=上述生成的code&client_id=messaging-client&client_secret=secret&redirect_uri=https://www.baidu.com" http://localhost:8080/oauth2/token
+   curl -X POST -d "grant_type=authorization_code&code=<CODE>&client_id=messaging-client&client_secret=secret&redirect_uri=https://www.baidu.com" http://localhost:8080/oauth2/token
    ```
 
 3. 刷新 token:
 
    ```bash
-   curl -X POST -d "grant_type=refresh_token&refresh_token=上述生成的refresh_token&client_id=messaging-client&client_secret=secret" http://localhost:8080/oauth2/token
+   curl -X POST -d "grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>&client_id=messaging-client&client_secret=secret" http://localhost:8080/oauth2/token
+   ```
+
+4. 调用 userinfo:
+
+   ```bash
+   curl -X GET -H "Authorization: Bearer <ACCESS_TOKEN>" http://localhost:8080/oauth/userinfo
    ```
