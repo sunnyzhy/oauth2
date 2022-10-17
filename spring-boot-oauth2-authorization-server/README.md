@@ -9,7 +9,7 @@
    - uri: ```.\org\springframework\security\spring-security-oauth2-authorization-server\0.3.1\spring-security-oauth2-authorization-server-0.3.1.jar!\org\springframework\security\oauth2\server\authorization\web\OAuth2TokenEndpointFilter.class```
 
 - ```/userinfo```:
-   - uri: ```.\org\springframework\security\spring-security-oauth2-authorization-server\0.3.1\spring-security-oauth2-authorization-server-0.3.1.jar!\org\springframework\security\oauth2\server\authorization\oidc\authentication\OidcUserInfoAuthenticationProvider.class```
+   - uri: ```.\org\springframework\security\spring-security-oauth2-authorization-server\0.3.1\spring-security-oauth2-authorization-server-0.3.1.jar!\org\springframework\security\oauth2\server\authorization\oidc\web\OidcUserInfoEndpointFilter.class```
 
    - userinfo: ```.\org\springframework\security\spring-security-oauth2-authorization-server\0.3.1\spring-security-oauth2-authorization-server-0.3.1.jar!\org\springframework\security\oauth2\server\authorization\oidc\authentication\OidcUserInfoAuthenticationProvider.class```
 
