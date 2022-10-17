@@ -18,13 +18,17 @@ import java.util.Map;
 public class CustomUser extends User implements OAuth2AuthenticatedPrincipal {
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
     private String userId;
+    private String profile;
     private String email;
+    private String address;
     private String phone;
 
-    public CustomUser(String userId, String email, String phone, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUser(String userId, String profile, String email, String address, String phone, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.userId = userId;
+        this.profile = profile;
         this.email = email;
+        this.address = address;
         this.phone = phone;
     }
 

@@ -52,6 +52,10 @@ public class OAuth2ClientController {
                 .redirectUri(clientVo.getRedirectUri())
                 .scopes(s -> {
                     s.add(OidcScopes.OPENID);
+                    s.add(OidcScopes.PROFILE);
+                    s.add(OidcScopes.EMAIL);
+                    s.add(OidcScopes.ADDRESS);
+                    s.add(OidcScopes.PHONE);
                     s.addAll(clientVo.getScopes());
                 })
                 .clientSettings(ClientSettings.builder()

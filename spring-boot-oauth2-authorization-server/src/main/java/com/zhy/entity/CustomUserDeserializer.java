@@ -33,7 +33,9 @@ public class CustomUserDeserializer extends JsonDeserializer<CustomUser> {
         String username = readJsonNode(jsonNode, "username").asText();
 
         String userId = readJsonNode(jsonNode, "userId").asText();
+        String profile = readJsonNode(jsonNode, "profile").asText();
         String email = readJsonNode(jsonNode, "email").asText();
+        String address = readJsonNode(jsonNode, "address").asText();
         String phone = readJsonNode(jsonNode, "phone").asText();
 
         String password = passwordNode.asText("");
@@ -41,7 +43,7 @@ public class CustomUserDeserializer extends JsonDeserializer<CustomUser> {
         boolean accountNonExpired = readJsonNode(jsonNode, "accountNonExpired").asBoolean();
         boolean credentialsNonExpired = readJsonNode(jsonNode, "credentialsNonExpired").asBoolean();
         boolean accountNonLocked = readJsonNode(jsonNode, "accountNonLocked").asBoolean();
-        CustomUser result = new CustomUser(userId, email, phone, username, password, authorities);
+        CustomUser result = new CustomUser(userId, profile, email, address, phone, username, password, authorities);
         if (passwordNode.asText(null) == null) {
             result.eraseCredentials();
         }

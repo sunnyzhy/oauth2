@@ -70,8 +70,10 @@ public class JwtConfig {
 
                 claims.claim("sub", user.getUsername());
                 claims.claim("userId", user.getUserId());
+                claims.claim("profile", user.getProfile());
                 claims.claim("email", user.getEmail());
-                claims.claim("phone", user.getPhone());
+                claims.claim("address", user.getAddress());
+                claims.claim("phone_number", user.getPhone());
             }
         };
     }
