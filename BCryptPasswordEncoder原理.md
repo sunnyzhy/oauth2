@@ -38,7 +38,7 @@ encode2:$2a$10$j3syVZY2dfMEHtoMox0Tauj9UGknhwFjHtVLylHCWubSohIgdkLqC
 matches2:true
 ```
 
-同一个明文加密两次，却输出了两上不同的密文。
+同一个明文加密两次，却输出了两上不同的密文。下面介绍其原理。
 
 ## encode 函数的原理
 
@@ -131,8 +131,8 @@ public boolean matches(CharSequence rawPassword, String encodedPassword) {
 
 参数说明:
 
-- ```CharSequence rawPassword```: 密码的明文: 密码的明文，此处值为: ```123```
-- ```String encodedPassword```: 密码的密文: 密码的明文，此处值为: ```$2a$10$/jD5osy0uAjfh.JK5RZKben3W7fj084SQDDWVk/g.sR3uvS9.plhG```
+- ```CharSequence rawPassword```: 密码的明文: 此处值为: ```123```
+- ```String encodedPassword```: 密码的密文: 此处值为: ```$2a$10$/jD5osy0uAjfh.JK5RZKben3W7fj084SQDDWVk/g.sR3uvS9.plhG```
 
 依次断点进入:
 
@@ -145,8 +145,8 @@ public static boolean checkpw(String plaintext, String hashed) {
 
 参数说明:
 
-- ```String plaintext```: 密码的明文: 密码的明文，此处值为: ```123```
-- ```String hashed```: 密码的密文: 密码的明文，此处值为: ```$2a$10$/jD5osy0uAjfh.JK5RZKben3W7fj084SQDDWVk/g.sR3uvS9.plhG```
+- ```String plaintext```: 密码的明文: 此处值为: ```123```
+- ```String hashed```: 密码的密文: 此处值为: ```$2a$10$/jD5osy0uAjfh.JK5RZKben3W7fj084SQDDWVk/g.sR3uvS9.plhG```
 
 ```java
 // BCrypt.class
@@ -158,7 +158,7 @@ public static String hashpw(String password, String salt) {
 
 参数说明:
 
-- ```String password```: 密码的明文: 密码的明文，此处值为: ```123```
+- ```String password```: 密码的明文: 此处值为: ```123```
 - ```String salt```: 密码的密文，此处值为: ```$2a$10$/jD5osy0uAjfh.JK5RZKben3W7fj084SQDDWVk/g.sR3uvS9.plhG```
    - ***注: 此密文包含了随机盐，下面会讲到***
 
