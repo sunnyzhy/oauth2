@@ -11,7 +11,7 @@
 
 ## 示例
 
-``java
+```java
 @Test
 void password() {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
