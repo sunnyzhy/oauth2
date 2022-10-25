@@ -6,7 +6,9 @@ import com.zhy.constant.CommonConstant;
 import com.zhy.entity.CustomUserMixin;
 import com.zhy.service.CustomJdbcOAuth2AuthorizationService;
 import com.zhy.entity.CustomUser;
+import com.zhy.service.CustomRedirectUriOAuth2AuthenticationValidator;
 import com.zhy.service.CustomUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -14,41 +16,66 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
+import org.springframework.security.oauth2.core.authentication.OAuth2AuthenticationValidator;
 import org.springframework.security.oauth2.server.authorization.JdbcOAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeRequestAuthenticationProvider;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author zhy
  * @date 2022/10/12 9:01
  */
 @Configuration
+@RequiredArgsConstructor
 public class AuthorizationServerConfig {
     private final JdbcTemplate jdbcTemplate;
     private final RedisTemplate<String, Object> redisTemplate;
     private final CustomUserDetailsService userDetailsService;
 
-    public AuthorizationServerConfig(JdbcTemplate jdbcTemplate, RedisTemplate<String, Object> redisTemplate, CustomUserDetailsService userDetailsService) {
-        this.jdbcTemplate = jdbcTemplate;
-        this.redisTemplate = redisTemplate;
-        this.userDetailsService = userDetailsService;
-    }
-
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
             throws Exception {
-        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+        /**
+         * 默认方法
+         */
+//        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
+        /**
+         * 自定义 OAuth2AuthorizationCodeRequestAuthenticationProvider
+         */
+        OAuth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
+        authorizationServerConfigurer.authorizationEndpoint(authorizationEndpointConfigurer -> {
+            OAuth2AuthorizationCodeRequestAuthenticationProvider authenticationProvider =
+                    new OAuth2AuthorizationCodeRequestAuthenticationProvider(
+                            registeredClientRepository(), authorizationService() , authorizationConsentService());
+            authenticationProvider.setAuthenticationValidatorResolver(createDefaultAuthenticationValidatorResolver());
+            authorizationEndpointConfigurer.authenticationProvider(authenticationProvider);
+        });
+        RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
+        http.requestMatcher(endpointsMatcher).authorizeRequests((authorizeRequests) -> {
+            ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl) authorizeRequests.anyRequest()).authenticated();
+        }).csrf((csrf) -> {
+            csrf.ignoringRequestMatchers(new RequestMatcher[]{endpointsMatcher});
+        }).apply(authorizationServerConfigurer);
+
         http
                 // Redirect to the login page when not authenticated from the
                 // authorization endpoint
@@ -70,7 +97,8 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public OAuth2AuthorizationService authorizationService(JdbcTemplate jdbcTemplate, RegisteredClientRepository registeredClientRepository) {
+    public OAuth2AuthorizationService authorizationService() {
+        RegisteredClientRepository registeredClientRepository = registeredClientRepository();
         CustomJdbcOAuth2AuthorizationService service = new CustomJdbcOAuth2AuthorizationService(jdbcTemplate, registeredClientRepository, redisTemplate);
         CustomJdbcOAuth2AuthorizationService.OAuth2AuthorizationRowMapper authorizationRowMapper = new CustomJdbcOAuth2AuthorizationService.OAuth2AuthorizationRowMapper(registeredClientRepository);
 
@@ -97,5 +125,12 @@ public class AuthorizationServerConfig {
     @Bean
     public ProviderSettings providerSettings() {
         return ProviderSettings.builder().build();
+    }
+
+    private Function<String, OAuth2AuthenticationValidator> createDefaultAuthenticationValidatorResolver() {
+        Map<String, OAuth2AuthenticationValidator> authenticationValidators = new HashMap();
+        authenticationValidators.put("redirect_uri", new CustomRedirectUriOAuth2AuthenticationValidator());
+        authenticationValidators.put("scope", new CustomRedirectUriOAuth2AuthenticationValidator());
+        return authenticationValidators::get;
     }
 }

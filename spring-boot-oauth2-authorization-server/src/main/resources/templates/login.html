@@ -23,6 +23,7 @@
                 <input name="_csrf" type="hidden" value="1de05617-3d0b-47b0-b1ae-50da84a28ebd" />
                 <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
             </form>
+            <p style=" color: red; font-size: 1.5rem; margin-top: 3rem; text-align: center" th:if="${param.error}">登录失败</p>
         </div>
     </body>
 </html>

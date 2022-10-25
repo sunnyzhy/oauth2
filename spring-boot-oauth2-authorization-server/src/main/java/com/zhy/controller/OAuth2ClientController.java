@@ -1,6 +1,7 @@
 package com.zhy.controller;
 
 import com.zhy.entity.RegisteredClientVo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -23,14 +24,10 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping(value = "/client")
+@RequiredArgsConstructor
 public class OAuth2ClientController {
     private final RegisteredClientRepository registeredClientRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public OAuth2ClientController(RegisteredClientRepository registeredClientRepository, PasswordEncoder passwordEncoder) {
-        this.registeredClientRepository = registeredClientRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @PostMapping
     public String save(@RequestBody RegisteredClientVo clientVo) {

@@ -1,14 +1,13 @@
 package com.zhy.config;
 
 import com.zhy.constant.CommonConstant;
+import com.zhy.service.CustomDaoAuthenticationProvider;
 import com.zhy.service.CustomLogoutHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -16,7 +15,10 @@ import org.springframework.security.web.SecurityFilterChain;
  * @date 2022/10/12 8:59
  */
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class DefaultSecurityConfig {
+    private final CustomDaoAuthenticationProvider customDaoAuthenticationProvider;
+
     @Bean
     @Order(2)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
@@ -27,6 +29,8 @@ public class DefaultSecurityConfig {
                         .antMatchers("/oauth/**", "/client/**", "/css/**", "/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                // 自定义 DaoAuthenticationProvider
+//                .authenticationProvider(customDaoAuthenticationProvider)
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain
                 .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
@@ -39,9 +43,4 @@ public class DefaultSecurityConfig {
         return http.build();
     }
 
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
 }
