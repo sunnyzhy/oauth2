@@ -19,6 +19,9 @@ import java.util.Iterator;
  * @date 2022/10/25 9:17
  *
  * 自定义 redirectUri 的验证逻辑
+ *
+ * 注意: 标准 oauth2.1 里的 redirectUri 是精确匹配
+ *
  */
 public class CustomRedirectUriOAuth2AuthenticationValidator implements OAuth2AuthenticationValidator {
     public CustomRedirectUriOAuth2AuthenticationValidator() {
