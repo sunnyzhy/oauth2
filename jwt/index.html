@@ -1,0 +1,40 @@
+<html>
+
+	<head>
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<script src="./js/jwt-decode.min.js"></script>
+		<title>JSON Web Token</title>
+	</head>
+
+	<body>
+		<script>
+			window.onload=function load(){
+									let pasteEle=document.getElementById("token");
+									pasteEle.addEventListener("paste", function (e){
+									    if ( !(e.clipboardData && e.clipboardData.items) ) {
+									        return;
+									    }
+									let token = (event.clipboardData || window.clipboardData).getData('text')
+									                var header = jwt_decode(token, {
+									                    header: true
+									                });
+									                header = JSON.stringify(header, null, 4);
+									                document.getElementById("header").innerHTML = header;
+									                var payload = jwt_decode(token);
+									                payload = JSON.stringify(payload, null, 4);
+									                document.getElementById("payload").innerHTML = payload;
+									});
+									}
+		</script>
+		<div style="width:50%;margin:auto;">
+			<h3>Encoded</h3>
+			<textarea id="token" cols="30" rows="10" class="form-control"></textarea>
+			<h3>Decoded</h3>
+			<h4>header</h4>
+			<pre id="header" style="white-space:pre-wrap;color:red;height:15%"></pre>
+			<h4>payload</h4>
+			<pre id="payload" style="white-space:pre-wrap;color:purple;height:35%"></pre>
+		</div>
+	</body>
+
+</html>
