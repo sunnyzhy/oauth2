@@ -194,6 +194,6 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
 
 ## 10 oauth2 的 controller 源码
 
-- ```/oauth/authorize``` controller: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class
+- ```/oauth/authorize``` controller: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class```
 
 - ```/oauth/token``` controller: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class```
