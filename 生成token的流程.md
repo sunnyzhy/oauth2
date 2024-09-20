@@ -1,11 +1,11 @@
 # 生成 token 的流程 (code 换取 token)
 
-## 1 访问 /oauth2/authorize 接口（GET）
+## 1 访问 /oauth/authorize 接口（GET）
 
-**在浏览器中访问授权服务器的 ```/oauth2/authorize``` 接口。**
+**在浏览器中访问授权服务器的 ```/oauth/authorize``` 接口。**
 
 ```
-http://localhost:8080/oauth2/authorize?response_type=code&scope=openid+email+phone&client_id=messaging-client&redirect_uri=http://localhost
+http://localhost:8080/oauth/authorize?response_type=code&scope=openid+email+phone&client_id=messaging-client&redirect_uri=http://localhost
 ```
 
 - ```response_type=code``` : **必须**，请求的响应类型为 ```authorization code```
@@ -31,22 +31,22 @@ http://localhost:8080/oauth/login
 http://localhost:8080/oauth/login/authorize
 ```
 
-## 4 重定向到 /oauth2/authorize 接口（GET）
+## 4 重定向到 /oauth/authorize 接口（GET）
 
-**浏览器又重定向到授权服务的 ```/oauth2/authorize``` 接口，即步骤 1 所访问的授权接口地址。**
+**浏览器又重定向到授权服务的 ```/oauth/authorize``` 接口，即步骤 1 所访问的授权接口地址。**
 
 ```
-http://localhost:8080/oauth2/authorize?response_type=code&scope=openid+email+phone&client_id=messaging-client&redirect_uri=http://localhost
+http://localhost:8080/oauth/authorize?response_type=code&scope=openid+email+phone&client_id=messaging-client&redirect_uri=http://localhost
 ```
 
-## 5 授权并调用 /oauth2/authorize 接口（POST）
+## 5 授权并调用 /oauth/authorize 接口（POST）
 
 **如果不满足自动授权的条件，就执行本步骤 5; 否则，就直接转到步骤  6 （后台自动授权）。**
 
-**点授权之后，调用授权服务的 /oauth2/authorize 接口。**
+**点授权之后，调用授权服务的 /oauth/authorize 接口。**
 
 ```
-http://localhost:8080/oauth2/authorize
+http://localhost:8080/oauth/authorize
 ```
 
 ## 6 重定向并返回 code（GET）
@@ -59,39 +59,39 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
 
 - ```code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0``` : code 就是授权码
 
-## 7 获取 token 调用 /oauth2/token 接口（POST）
+## 7 获取 token 调用 /oauth/token 接口（POST）
 
-**调用授权服务的 ```/oauth2/token``` 接口。注意: ```grant_type=authorization_code```。**
+**调用授权服务的 ```/oauth/token``` 接口。注意: ```grant_type=authorization_code```。**
 
 1. **postman:**
    ```bash
-   http://localhost:8080/oauth2/token?grant_type=authorization_code&code=<CODE>&client_id=messaging-client&client_secret=secret&redirect_uri=http://localhost
+   http://localhost:8080/oauth/token?grant_type=authorization_code&code=<CODE>&client_id=messaging-client&client_secret=secret&redirect_uri=http://localhost
    ```
 
    示例:
    ```
-   http://localhost:8080/oauth2/token?grant_type=authorization_code&code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0&client_id=messaging-client&client_secret=secret&redirect_uri=http://localhost
+   http://localhost:8080/oauth/token?grant_type=authorization_code&code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0&client_id=messaging-client&client_secret=secret&redirect_uri=http://localhost
    ```
 
 2. **curl:**
    ```bash
-   curl --data-urlencode "grant_type=authorization_code" --data-urlencode "code=<CODE>" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" --data-urlencode "redirect_uri=http://localhost" -X POST http://localhost:8080/oauth2/token
+   curl --data-urlencode "grant_type=authorization_code" --data-urlencode "code=<CODE>" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" --data-urlencode "redirect_uri=http://localhost" -X POST http://localhost:8080/oauth/token
    ```
 
    示例:
    ```bash
-   curl --data-urlencode "grant_type=authorization_code" --data-urlencode "code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" --data-urlencode "redirect_uri=http://localhost" -X POST http://localhost:8080/oauth2/token
+   curl --data-urlencode "grant_type=authorization_code" --data-urlencode "code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" --data-urlencode "redirect_uri=http://localhost" -X POST http://localhost:8080/oauth/token
    ```
 
    **or**
 
    ```bash
-   curl -X POST -d "grant_type=authorization_code&code=<CODE>&client_id=messging-client&client_secret=secret&redirect_uri=http://localhost" http://localhost:8080/oauth2/token
+   curl -X POST -d "grant_type=authorization_code&code=<CODE>&client_id=messging-client&client_secret=secret&redirect_uri=http://localhost" http://localhost:8080/oauth/token
    ```
 
    示例:
    ```bash
-   curl -X POST -d "grant_type=authorization_code&code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0&client_id=messging-client&client_secret=secret&redirect_uri=http://localhost" http://localhost:8080/oauth2/token
+   curl -X POST -d "grant_type=authorization_code&code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0&client_id=messging-client&client_secret=secret&redirect_uri=http://localhost" http://localhost:8080/oauth/token
    ```
 
 - ```grant_type=authorization_code``` : **必须**，授权码模式(authorization code)
@@ -139,39 +139,39 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
 }
 ```
 
-## 9 刷新 token 调用 /oauth2/token 接口（POST）
+## 9 刷新 token 调用 /oauth/token 接口（POST）
 
-**调用授权服务器的 ```/oauth2/token``` 接口。注意: ```grant_type=refresh_token```。**
+**调用授权服务器的 ```/oauth/token``` 接口。注意: ```grant_type=refresh_token```。**
 
 1. **postman:**
    ```bash
-   http://localhost:8080/oauth2/token?grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>&client_id=messaging-client&client_secret=secret
+   http://localhost:8080/oauth/token?grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>&client_id=messaging-client&client_secret=secret
    ```
 
    示例:
    ```
-   http://localhost:8080/oauth2/token?grant_type=refresh_token&refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj&client_id=messaging-client&client_secret=secret
+   http://localhost:8080/oauth/token?grant_type=refresh_token&refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj&client_id=messaging-client&client_secret=secret
    ```
 
 2. **curl:**
    ```bash
-   curl --data-urlencode "grant_type=refresh_token" --data-urlencode "refresh_token=<REFRESH_TOKEN>" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" -X POST http://localhost:8080/oauth2/token
+   curl --data-urlencode "grant_type=refresh_token" --data-urlencode "refresh_token=<REFRESH_TOKEN>" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" -X POST http://localhost:8080/oauth/token
    ```
 
    示例:
    ```bash
-   curl --data-urlencode "grant_type=refresh_token" --data-urlencode "refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" -X POST http://localhost:8080/oauth2/token
+   curl --data-urlencode "grant_type=refresh_token" --data-urlencode "refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj" --data-urlencode "client_id=messaging-client" --data-urlencode "client_secret=secret" -X POST http://localhost:8080/oauth/token
    ```
 
    **or**
 
    ```bash
-   curl -X POST -d "grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>&client_id=messaging-client&client_secret=secret" http://localhost:8080/oauth2/token
+   curl -X POST -d "grant_type=refresh_token&refresh_token=<REFRESH_TOKEN>&client_id=messaging-client&client_secret=secret" http://localhost:8080/oauth/token
    ```
 
    示例:
    ```bash
-   curl -X POST -d "grant_type=refresh_token&refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj&client_id=messaging-client&client_secret=secret" http://localhost:8080/oauth2/token
+   curl -X POST -d "grant_type=refresh_token&refresh_token=wsyn9nnBAocnPdN8L3RS_Sx2yedLvvtkvuQydW0NwX7xrBilAYuAsCVEyv86bEYrvTBXsYvRZIzx_LhBxXx1LPfc7JYU7eYOof0sqW93WVnF4n1-D9fV1Yhckd4PJsLj&client_id=messaging-client&client_secret=secret" http://localhost:8080/oauth/token
    ```
 
 - ```grant_type=refresh_token``` : **必须**，刷新 token
@@ -191,3 +191,9 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
     "expires_in": 3600
 }
 ```
+
+## 10 oauth2 的 controller 源码
+
+- ```/oauth/authorize``` controller: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class
+
+- ```/oauth/token``` controller: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class```
