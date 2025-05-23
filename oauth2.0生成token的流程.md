@@ -8,10 +8,10 @@
 http://localhost:8080/oauth/authorize?response_type=code&scope=openid+email+phone&client_id=messaging-client&redirect_uri=http://localhost
 ```
 
-- ```response_type=code``` : **必须**，请求的响应类型为 ```authorization code```
+- ```response_type=code``` : **必须**，请求的响应类型为 ```code```
 - ```scope=openid``` :  **OIDC 请求的时候为必选项，其他请求的时候为可选项**，OIDC 请求时的 scope 参数值必须包含 ```openid```
 - ```client_id=messaging-client``` : **必须**，在授权服务器上注册的 ```client_id```
-- ```redirect_uri=http://localhost``` : **必须**，在授权服务器上注册的重定向地址
+- ```redirect_uri=http://localhost``` : **必须**，在授权服务器上注册的回调地址
 
 ## 2 重定向到 /oauth/login 接口（GET）
 
@@ -98,7 +98,7 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
 - ```code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr4DRTtbho64Tr814csVZTIRjbY3vbmxoKLfMR7sZIyQ6R_sp0Dt3YE4QD4NuvMr1GFE4sEQ0``` : **必须**，授权服务器返回的授权码
 - ```client_id=messaging-client``` : **必须**，在授权服务器上注册的 client_id
 - ```client_secret=secret``` : **必须**，在授权服务器上注册的 secret
-- ```redirect_uri=http://localhost``` : **必须**，在授权服务器上注册的重定向的地址
+- ```redirect_uri=http://localhost``` : **必须**，在授权服务器上注册的回调地址
    
 成功获取 token 如下: 
 
@@ -192,8 +192,11 @@ http://localhost/?code=QHu3OxrHtN64DP0fu3Nc1OkKBaV8A6tjUQ4v9Nk64mMsFWVnLWlZr2Wnr
 }
 ```
 
-## 10 oauth2 的 controller 源码
+## 10 oauth2 源码
 
-- ```/oauth/authorize``` controller: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class```
+***以 ```spring-security-oauth2\2.3.4.RELEASE``` 源码为例。***
 
-- ```/oauth/token``` controller: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class```
+controller 源码:
+
+- ```/oauth/authorize```: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\AuthorizationEndpoint.class```
+- ```/oauth/token```: ```org\springframework\security\oauth\spring-security-oauth2\2.3.4.RELEASE\spring-security-oauth2-2.3.4.RELEASE.jar!\org\springframework\security\oauth2\provider\endpoint\TokenEndpoint.class```
