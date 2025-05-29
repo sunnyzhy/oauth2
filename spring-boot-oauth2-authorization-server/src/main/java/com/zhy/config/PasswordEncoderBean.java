@@ -7,12 +7,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author zhy
- * @date 2022/10/25 10:01
+ * @date 2025/5/16 14:13
  */
 @Configuration
-public class PasswordConfig {
+public class PasswordEncoderBean {
+    private final int PW_ENCORDER_SALT = 12;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
+        return new BCryptPasswordEncoder(PW_ENCORDER_SALT);
     }
 }

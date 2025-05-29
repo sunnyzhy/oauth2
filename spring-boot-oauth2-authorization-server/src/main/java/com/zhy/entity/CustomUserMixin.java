@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.zhy.entity.CustomUserDeserializer;
 
 /**
  * @author zhy
- * @date 2022/10/12 9:40
+ * @date 2025/5/16 14:14
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
 @JsonDeserialize(using = CustomUserDeserializer.class)

@@ -1,12 +1,10 @@
-package com.zhy.entity;
+package com.zhy.vo;
 
 import lombok.Data;
 
-import java.util.Set;
-
 /**
  * @author zhy
- * @date 2022/10/13 11:46
+ * @date 2025/5/29 10:50
  */
 @Data
 public class RegisteredClientVo {
@@ -14,5 +12,4 @@ public class RegisteredClientVo {
     private String clientSecret;
     private String clientName;
     private String redirectUri;
-    private Set<String> scopes;
 }
