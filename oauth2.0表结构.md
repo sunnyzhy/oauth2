@@ -1,6 +1,6 @@
 # 表结构
 
-```https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql```
+官网: ```https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql```
 
 ## H2
 
