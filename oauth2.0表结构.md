@@ -1,6 +1,8 @@
 # 表结构
+
+```https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql```
+
 ## H2
-[官方 H2 表结构](https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql 'schema.sql')
 
 ```sql
 -- used in tests that use HSQL
