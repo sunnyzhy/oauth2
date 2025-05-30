@@ -1,5 +1,7 @@
 # 表结构
 
+官网: ```https://github.com/spring-projects/spring-authorization-server/tree/main/oauth2-authorization-server/src/test/resources/org/springframework/security/oauth2/server/authorization```
+
 ## H2
 
 ```sql
