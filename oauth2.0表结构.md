@@ -75,6 +75,7 @@ create table ClientDetails (
 ```
 
 ## MySQL
+
 ```sql
 SET FOREIGN_KEY_CHECKS=0;
 
